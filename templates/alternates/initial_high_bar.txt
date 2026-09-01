@@ -1,0 +1,16 @@
+Hi {{first_name}},
+
+{{personal_note}}
+
+Quick version: backend SDE at HiLabs, IIT Delhi, Codeforces Expert
+(1634) and LeetCode Knight across 40+ contests. Shipped an export
+pipeline rewrite that went from 45 minutes to 2, plus a Kafka-based
+async audit framework with DLQ and exponential backoff.
+
+I'll clear your OA. Is {{role}} still open?
+
+Resume: {{resume_link}}
+
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

@@ -1,0 +1,25 @@
+Hi {{first_name}},
+
+IIT Delhi '25 here - currently a backend SDE at HiLabs, and I saw you're
+at {{company}}.
+
+{{personal_note}}
+
+I'm applying for {{role}} ({{job_id}}) and would really value a referral.
+Only if you're comfortable though - genuinely no hard feelings if not,
+I know it puts your name on the line.
+
+Making it zero effort for you:
+
+  Resume:   {{resume_link}}
+  One line: rebuilt our export pipeline from 45 minutes to 2 using
+            database cursor streaming and producer-consumer concurrency
+  Screens:  Codeforces Expert, LeetCode Knight, 40+ contests - I won't
+            waste your team's OA slot
+
+If you'd rather not, or if the team isn't actually hiring, just say so and
+I'll leave it there.
+
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

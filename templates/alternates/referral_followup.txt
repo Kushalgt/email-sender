@@ -1,0 +1,11 @@
+Hi {{first_name}},
+
+Just closing the loop on the referral ask below - no pressure either way.
+
+If it's easier, I'm happy to send you the exact req link and a two-line
+blurb you can paste straight into the internal form.
+
+And if it's a no, that's completely fine, thanks for reading.
+
+{{from_name}}
+{{phone}}

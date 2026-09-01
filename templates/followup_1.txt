@@ -1,0 +1,13 @@
+Hi {{first_name}},
+
+Following up on the note below about {{role}}.
+
+One thing I left out: I also built HiLabs' schema-per-tenant multi-tenancy
+layer - Hibernate multi-tenancy with JWT-based tenant resolution and
+ThreadLocal context propagation. Usually the messier half of B2B backend
+work, so worth mentioning if that's the kind of problem your team has.
+
+If the timing isn't right, just say so and I'll stop here.
+
+{{from_name}}
+{{phone}}

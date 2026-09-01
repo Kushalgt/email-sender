@@ -1,0 +1,19 @@
+Hi {{first_name}},
+
+{{personal_note}}
+
+I'm a backend SDE at HiLabs who has been doing applied ML work. Most
+relevant: I took provider-directory address accuracy from 54.9% to
+75.3% by reframing it as a multi-site affiliation problem - 92 features
+off Snowflake claims, CMS and NPPES, a two-stage LightGBM cascade at
+0.81/0.94 CV AUC, served behind a Dockerized FastAPI with TreeSHAP
+explanations.
+
+Is {{role}} still open? If someone else on your team owns it, happy to
+be pointed their way.
+
+Resume: {{resume_link}}
+
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

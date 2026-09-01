@@ -1,0 +1,18 @@
+Hi {{first_name}},
+
+{{personal_note}}
+
+I'm a backend SDE at HiLabs (Java, Spring Boot, Kafka, PostgreSQL, AWS).
+Most relevant thing I've shipped: rebuilt our export pipeline using
+database cursor streaming and producer-consumer concurrency - took it
+from 45 minutes to 2, and removed the JVM heap ceiling that kept
+breaking it under load.
+
+Is {{role}} still open? If someone else on your team owns it, happy to
+be pointed their way.
+
+Resume: {{resume_link}}
+
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

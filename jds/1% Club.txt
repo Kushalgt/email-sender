@@ -1,0 +1,13 @@
+
+0–2 years of experience in a Backend SDE role, preferably in a fintech company.
+Proficiency in GoLang and experience with other programming languages such as JavaScript, TypeScript is a plus.
+Ownership and obsession with the product.
+Willingness to learn and adapt to new technologies and tools.
+
+🤌 Bonus points
+
+You can use AI to automate grunt work and 10x your output
+You have a good eye for details
+You think like a product owner, not just an engineer
+You have worked at a FinTech before
+

@@ -1,0 +1,9 @@
+Hi {{first_name}},
+
+Last note from me - I'll assume the timing isn't right and leave it there.
+
+If a backend opening comes up at {{company}} later, I'd be glad to hear
+about it.
+
+{{from_name}}
+{{phone}}

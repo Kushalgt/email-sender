@@ -1,0 +1,23 @@
+About The Role
+
+We are looking for a skilled Java Developer with experience in Springboot, Microservices, and AWS to join our team. As a Java Developer, you will be responsible for developing high-quality software solutions, designing and implementing Java applications, analyzing user requirements, and ensuring the best performance and responsiveness of applications.
+
+Responsibilities
+
+ Designing, developing, and implementing high-quality Java applications.
+ Developing and integrating Java applications with backend services.
+ Writing well-designed, efficient, and testable code.
+ Troubleshooting and debugging applications to optimize performance.
+ Collaborating with cross-functional teams to define, design, and ship new features.
+ Ensuring code quality and organization.
+ Staying up to date with new technologies and best practices.
+
+Required Skills
+
+ Strong proficiency in Java programming.
+ Experience with Springboot and Microservices architecture.
+ Knowledge of AWS services and deployment.
+ Familiarity with relational databases (e.g., MySQL, PostgreSQL).
+ Understanding of Agile methodologies.
+ Excellent problem-solving skills.
+ Good communication and teamwork abilities.

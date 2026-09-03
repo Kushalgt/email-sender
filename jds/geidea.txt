@@ -1,0 +1,17 @@
+Responsibilities:
+Design, develop, test, and maintain scalable backend services and REST APIs using Java and Spring Boot.
+Develop and maintain microservices following established architecture, coding, security, and design standards.
+Design efficient data models and implement reliable
+communication using databases, Kafka, MQTT, and other messaging technologies.
+Implement secure authentication, authorization, API security, and application-level controls while ensuring service reliability.
+Analyze application performance, troubleshoot production issues, perform root-cause analysis, and implement permanent solutions.
+Collaborate with Android, Frontend, QA, DevOps, Infrastructure, and Product teams to deliver end-to-end platform capabilities.
+Participate in code reviews, technical discussions, design activities, documentation, and continuous improvement of engineering practices.
+
+Qualifications:
+2–5 years of professional experience in backend software development.
+Hands-on experience with Java and Spring Boot.
+Experience developing and maintaining REST APIs and backend services.
+Experience working with microservices-based applications.
+Experience working in an Agile/Scrum software development environment.
+

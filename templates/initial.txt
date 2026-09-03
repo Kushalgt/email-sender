@@ -8,7 +8,7 @@ database cursor streaming and producer-consumer concurrency - took it
 from 45 minutes to 2, and removed the JVM heap ceiling that kept
 breaking it under load.
 
-Is {{role}} still open? If someone else on your team owns it, happy to
+Is {{role}} role still open? If someone else on your team owns it, happy to
 be pointed their way.
 
 Resume: {{resume_link}}

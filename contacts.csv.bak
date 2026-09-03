@@ -1,2 +1,4 @@
-email,name,company,job_id,role,personal_note
-pratham@onepercentclub.io,Pratham Churi,1% Club,,SDE-I (Backend),""
+email,name,company,job_id,"Software Engineer - Java, Spring Boot and Microservices",personal_note
+pratham@onepercentclub.io,Pratham Churi,1% Club,,SDE-I (Backend),"The role at 1% Club emphasizes ownership and product obsession, which aligns with my experience in developing a real-time multiplayer card game backend in Go, focusing on maintaining and resuming game states efficiently."
+hello@appinventiv.com, HR,Appinventiv,,Software Engineer ,"Developing high-quality applications requires scalable code, which aligns with my experience in designing and implementing testable and scalable code at HiLabs."
+vpant@apple.com,Vivek Pant,Apple, 200677836,"Software Engineer - Java, Spring Boot and Microservices"

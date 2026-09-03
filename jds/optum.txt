@@ -1,0 +1,14 @@
+Primary Responsibilities:
+
+PE OCDC, solid SE Engineer responsible for OCDC Hardening on Azure and E2E engineering delivery
+Work closely with the engineering teams, BAs, Architects, QE, Harden ODX on Azure
+Comply with the terms and conditions of the employment contract, company policies and procedures, and any and all directives (such as, but not limited to, transfer and/or re-assignment to different work locations, change in teams and/or work shifts, policies in regards to flexibility of work benefits and/or work environment, alternative work arrangements, and other decisions that may arise due to the changing business environment). The Company may adopt, vary or rescind these policies and directives in its absolute discretion and without any limitation (implied or otherwise) on its ability to do so
+Required Qualifications:
+
+Undergraduate degree or equivalent experience
+Solid Java tech stack knowledge
+Java, Spring Framework, Hibernate, and Angular JS
+Preferred Qualifications:
+
+Knowledge of Cloud (Azure)
+Knowledge of AKS, Azure functions

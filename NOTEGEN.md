@@ -4,6 +4,24 @@ Drafts the `{{personal_note}}` line for `outreach.py` using a **local
 open-weight model** (Ollama). Nothing leaves your machine: not your resume,
 not your contact list.
 
+There is also `notegen_hosted.py`, which does the exact same thing but
+calls a hosted model via OpenRouter instead. The validator, prompt,
+retrieval, JD lookup, caching, and the review/apply/list commands all live
+in `notegen_core.py` and are shared by both scripts unchanged — a note is
+judged the same way regardless of which one wrote it. The trade-off: your
+resume facts and job descriptions get sent to OpenRouter, so it is no
+longer local-only. Use it only if you're fine with that.
+
+```bash
+export OPENROUTER_API_KEY="..."     # put this in .env, then: source .env
+# add to config.json: "notegen_hosted": { "model": "<an OpenRouter model id>" }
+
+python3 notegen_hosted.py doctor    # is the key set? model configured?
+python3 notegen_hosted.py draft     # generate
+python3 notegen_hosted.py review    # same human gate as notegen.py
+python3 notegen_hosted.py apply     # writes into the same contacts.csv
+```
+
 ## Why it is a separate script
 
 `outreach.py` says in its own docstring:
@@ -20,7 +38,9 @@ AI-drafted but human-approved before it ever reaches the CSV.
 
 | File | What it is |
 |---|---|
-| `notegen.py` | the tool — stdlib only, no `pip install` |
+| `notegen.py` | the local (Ollama) tool — stdlib only, no `pip install` |
+| `notegen_hosted.py` | same tool, but calls a hosted model via OpenRouter |
+| `notegen_core.py` | shared validator, prompt, retrieval, caching, review/apply/list — used by both scripts above |
 | `resume_facts.json` | **the grounding file.** The model may only claim things written here |
 | `jds/<name>.txt` | one job description per contact |
 | `test_validator.py` | offline proof that fabrications get blocked (no model needed) |

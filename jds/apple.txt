@@ -1,0 +1,23 @@
+Responsibilities
+Develop and maintain highly reliable, scalable, and maintainable enterprise applications that can match Apple volumes
+Understand requirements, engage with team members, multi-functional teams and project managers to define solutions, and estimate the scope of work required
+Collaborate with, mentor, and influence members within your team and across other teams at Apple
+Deliver solutions that can keep up with a rapidly evolving product in a timely fashion
+Review technical designs and perform code review
+Minimum Qualifications
+2+ years of experience in designing and developing scalable enterprise grade solutions.
+Hands-on experience with Java, Spring Boot and Microservices.
+Hands-on with architecture, design and development
+Experience implementing cloud-based distributed systems, including familiarity with API implementation (e.g. REST, RPC, GraphQL, etc.).
+Experience using relational (e.g. Postgres, MySQL, etc.) and NoSQL (e.g. Cassandra, MongoDB, etc.) databases.
+Familiarity with OOP principles, data structures, algorithms, and software design patterns (e.g. GoF), with a focus on implementing testable, maintainable, and extensible backend code.
+Preferred Qualifications
+Exposure to using CI/CD tools to build, test, deploy, and release containerized software applications on cloud-based Kubernetes (e.g. AWS EKS, GCP GKE, Azure AKS, etc).
+Familiarity with Java web (e.g. ServiceTalk, Spring, Dropwizard, Quarkus, Micronaut, etc.) and unit testing frameworks (e.g. JUnit, Mockito, etc.).
+Familiarity with tooling languages (e.g. Go, Python, Ruby, etc.) and distributed orchestration & computing systems (e.g. Airflow, Spark, Flink, etc.).
+Basic understanding of JVM internals (e.g. garbage collection, memory allocation, JIT, JNI, etc.).
+Basic knowledge of networking concepts & protocols (e.g. HTTP/HTTPS, CDN, edge computing, load balancing, OSI model, etc.).
+Experience crafting and architecting distributed systems and concurrent programming.
+Experience designing ecosystems for Web applications & API Platforms
+Experience in rolling out distributed, large-scale, low latency web applications with REST, Data Caching Services, DB schema design and data access technologies
+Understand security concepts and build reliable and safe distributed applications

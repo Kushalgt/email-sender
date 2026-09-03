@@ -22,5 +22,8 @@
   "notegen": {
     "model": "qwen2.5:7b",
     "host": "http://127.0.0.1:11434"
+  },
+  "notegen_hosted": {
+    "model": "openai/gpt-4o-mini"
   }
 }

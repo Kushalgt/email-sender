@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "source-env",
+      "type": "shell",
+      "command": "source",
+      "args": [".env"],
+      "isBackground": false,
+      "problemMatcher": []
+    }
+  ]
+}

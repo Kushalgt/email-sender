@@ -1,0 +1,31 @@
+Hi {{first_name}},
+
+{{personal_note}}
+
+A brief introduction: I am a backend engineer at HiLabs, working with
+Java, Spring Boot, Kafka, PostgreSQL and AWS, and I completed my
+B.Tech at IIT Delhi. I would like to apply for {{role}}.
+
+The work I would most like to share: I rebuilt our export pipeline
+using database cursor streaming, producer-consumer concurrency and
+parallel I/O, which brought export time down from 45 minutes to 2
+minutes and removed the memory limits we kept running into. I also
+built the schema-per-tenant multi-tenancy layer, and the Kafka-based
+audit framework that the platform logs through.
+
+If my profile looks suitable, I am ready to start the process whenever
+it suits you, and I am happy to take an assessment or a coding round
+first. I have taken part in over 40 contests on Codeforces and
+LeetCode, so that step should go smoothly.
+
+If this opening is not yours, I would be grateful if you could tell me
+who is looking after it.
+
+{{job_ref}}
+Resume: {{resume_link}}
+
+Thank you for your time.
+
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

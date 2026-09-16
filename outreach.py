@@ -32,14 +32,16 @@ import smtplib
 import sqlite3
 import ssl
 import sys
+import textwrap
 import time
 from email.message import EmailMessage
 from pathlib import Path
 
+import store
+
 BASE = Path(__file__).resolve().parent
 DB_PATH = BASE / "outreach.db"
 CONFIG_PATH = BASE / "config.json"
-CONTACTS_CSV = BASE / "contacts.csv"
 SUPPRESS_CSV = BASE / "suppress.csv"
 PAUSE_FILE = BASE / "PAUSE"
 TEMPLATES = BASE / "templates"
@@ -48,6 +50,8 @@ TEMPLATES = BASE / "templates"
 UNFILLED = re.compile(r"\{\{[^}]*\}\}|\[[A-Za-z][A-Za-z _/-]{1,28}\]")
 PLACEHOLDER = re.compile(r"\{\{(\w+)\}\}")
 EMAIL_OK = re.compile(r"^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$")
+# job_id holds either a req ID or a pasted job link - see job_refs().
+JOB_URL = re.compile(r"^https?://", re.I)
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS contacts (
@@ -57,6 +61,7 @@ CREATE TABLE IF NOT EXISTS contacts (
     name          TEXT NOT NULL,
     role          TEXT NOT NULL DEFAULT '',
     personal_note TEXT NOT NULL DEFAULT '',
+    contact_type  TEXT NOT NULL DEFAULT '',
     stage         INTEGER NOT NULL DEFAULT 0,
     status        TEXT NOT NULL DEFAULT 'active',
     first_sent_at TEXT,
@@ -80,7 +85,21 @@ def db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
+    migrate(conn)
     return conn
+
+
+def migrate(conn):
+    """Add columns SCHEMA cannot add on its own.
+
+    SCHEMA uses CREATE TABLE IF NOT EXISTS, so a new column in it is silently
+    ignored for a database that already exists. Idempotent.
+    """
+    have = {r["name"] for r in conn.execute("PRAGMA table_info(contacts)")}
+    if "contact_type" not in have:
+        conn.execute("ALTER TABLE contacts ADD COLUMN "
+                     "contact_type TEXT NOT NULL DEFAULT ''")
+        conn.commit()
 
 
 def log(conn, addr, action, detail=""):
@@ -137,42 +156,48 @@ def render(template, fields):
 # ---------------------------------------------------------------- contacts
 
 def import_contacts(conn):
-    """Upsert rows from contacts.csv. Existing rows are never overwritten,
-    so re-running is safe and you can keep appending to the CSV."""
-    if not CONTACTS_CSV.exists():
-        sys.exit(f"ERROR: {CONTACTS_CSV} not found.")
+    """Upsert the joined rows from the CSV store (companies + jobs + people).
 
+    Existing rows are never overwritten, so re-running is safe and you can
+    keep appending to the CSVs. store.load_contacts() hands us one row per
+    (person, opening at their company) - the cross join - carrying the
+    company DISPLAY name, never the slug: the primary key here is
+    (email, company, job_id), so a changed company string would re-insert an
+    already-mailed contact at stage 0 and mail them twice.
+    """
     added = skipped = 0
-    with open(CONTACTS_CSV, newline="", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
-            addr = (row.get("email") or "").strip().lower()
-            note = (row.get("personal_note") or "").strip()
-            company = (row.get("company") or "").strip()
-            name = (row.get("name") or "").strip()
+    for row in store.load_contacts():
+        addr = row["email"].strip().lower()
+        note = row["personal_note"].strip()
+        company = row["company"].strip()
+        name = row["name"].strip()
+        job_id = row["job_id"].strip()
 
-            if not addr:
-                continue
-            if not EMAIL_OK.match(addr):
-                print(f"  [skip] bad email syntax: {addr}")
-                skipped += 1
-                continue
-            if not note:
-                print(f"  [skip] {addr}: personal_note is empty - write one line first")
-                skipped += 1
-                continue
-            if not company or not name:
-                print(f"  [skip] {addr}: name and company are both required")
-                skipped += 1
-                continue
+        if not addr:
+            continue
+        if not EMAIL_OK.match(addr):
+            print(f"  [skip] bad email syntax: {addr}")
+            skipped += 1
+            continue
+        if not note:
+            where = f"{company} {job_id}".strip()
+            print(f"  [skip] {addr} ({where}): personal_note is empty "
+                  f"- write one line first")
+            skipped += 1
+            continue
+        if not company or not name:
+            print(f"  [skip] {addr}: name and company are both required")
+            skipped += 1
+            continue
 
-            cur = conn.execute(
-                """INSERT OR IGNORE INTO contacts
-                   (email, company, job_id, name, role, personal_note)
-                   VALUES (?,?,?,?,?,?)""",
-                (addr, company, (row.get("job_id") or "").strip(),
-                 name, (row.get("role") or "").strip(), note),
-            )
-            added += cur.rowcount
+        cur = conn.execute(
+            """INSERT OR IGNORE INTO contacts
+               (email, company, job_id, name, role, personal_note, contact_type)
+               VALUES (?,?,?,?,?,?,?)""",
+            (addr, company, job_id, name, row["role"].strip(), note,
+             row["contact_type"].strip()),
+        )
+        added += cur.rowcount
 
     conn.commit()
     load_suppression(conn)
@@ -256,9 +281,34 @@ def imap_sync(conn, cfg):
 # ---------------------------------------------------------------- queue
 
 def build_queue(conn, cfg, cap):
-    """Follow-ups first (they are warmer), then new contacts, up to cap."""
+    """Follow-ups first (they are warmer), then new contacts, up to cap.
+
+    One person receives at most one message per day, even when they are a
+    contact for several openings at the same company (every person at a
+    company is contacted about every opening there, so that happens often).
+    The other opening simply waits for the next run - nothing is dropped.
+
+    `seen` is seeded from the database, not just built in memory, so running
+    `send` twice in one day cannot double up either.
+    """
     today = dt.date.today()
     queue = []
+
+    mailed_today = {r["email"] for r in conn.execute(
+        "SELECT email FROM contacts WHERE last_sent_at IS NOT NULL "
+        "AND date(last_sent_at) = date('now','localtime')")}
+    seen = set(mailed_today)
+
+    def take(r, step):
+        if r["email"] in seen:
+            why = ("already mailed today" if r["email"] in mailed_today
+                   else "already queued in this run")
+            where = f"{r['company']} {r['job_id']}".strip()
+            print(f"  [hold] {r['email']}: {why} - "
+                  f"{where} waits for the next run")
+            return
+        seen.add(r["email"])
+        queue.append((r, step))
 
     for r in conn.execute(
         "SELECT * FROM contacts WHERE status='active' AND stage IN (1,2) "
@@ -267,19 +317,88 @@ def build_queue(conn, cfg, cap):
         gap = cfg["followup_1_after_days"] if r["stage"] == 1 else cfg["followup_2_after_days"]
         due = dt.datetime.fromisoformat(r["last_sent_at"]).date() + dt.timedelta(days=gap)
         if due <= today:
-            queue.append((r, r["stage"] + 1))
+            take(r, r["stage"] + 1)
 
     for r in conn.execute(
         "SELECT * FROM contacts WHERE status='active' AND stage=0 ORDER BY rowid"
     ):
-        queue.append((r, 1))
+        take(r, 1)
 
     return queue[:cap]
 
 
+BASE_TEMPLATES = {1: "initial", 2: "followup_1", 3: "followup_2"}
+
+
+def pick_template(step, contact_type):
+    """templates/<base>.<contact_type>.txt when it exists, else <base>.txt.
+
+    So a peer engineer, an engineering manager and a recruiter can get
+    different wording just by adding a file - no config schema, and a missing
+    variant quietly falls back instead of failing a send.
+    """
+    base = BASE_TEMPLATES[step]
+    ct = (contact_type or "").strip()
+    if ct:
+        special = TEMPLATES / f"{base}.{ct}.txt"
+        if special.is_file():
+            return special
+    return TEMPLATES / f"{base}.txt"
+
+
+def wrap_body(body, width=72):
+    """Re-flow long paragraphs after substitution.
+
+    The templates are hand-wrapped, but {{personal_note}} and {{role}} expand
+    into long strings and blow past the margin - a 100-character line wraps
+    raggedly in most mail clients. Re-wrapping only the long line is not
+    enough either: it leaves a short line stranded in the middle of the
+    paragraph, so the whole paragraph is re-filled.
+
+    Three kinds of paragraph are left exactly as they are:
+      - any paragraph holding a URL, which must not be split across lines or
+        it stops being clickable (this also protects the signature block from
+        being collapsed into one line, since it carries the LinkedIn URL)
+      - indented paragraphs, which are the recruiter template's aligned
+        profile block and would lose their columns
+      - paragraphs that already fit, so hand-wrapped text is never disturbed
+    """
+    out = []
+    for para in body.split("\n\n"):
+        lines = para.split("\n")
+        if (any("http" in ln for ln in lines)
+                or any(ln[:1].isspace() for ln in lines)
+                or max((len(ln) for ln in lines), default=0) <= width):
+            out.append(para)
+            continue
+        out.append(textwrap.fill(
+            re.sub(r"\s+", " ", " ".join(lines)).strip(),
+            width=width,
+            break_long_words=False,   # never chop a word in half
+            break_on_hyphens=False,   # keep "producer-consumer" intact
+        ))
+    return "\n\n".join(out)
+
+
+def job_refs(job_id):
+    """One column, two uses: a body line and a subject fragment.
+
+    job_id holds a req ID *or* a pasted job link, because that is whichever
+    one the posting gave us. A URL must never reach the subject line, and a
+    blank must never leave a dangling label like "Req ID:" with nothing
+    after it. Returns (job_ref, subject_ref), either of which may be "".
+    """
+    jid = (job_id or "").strip()
+    if not jid:
+        return "", ""
+    if JOB_URL.match(jid):
+        return f"Posting: {jid}", ""
+    return f"Req ID: {jid}", jid
+
+
 def build_message(row, step, cfg, from_addr):
-    tmpl_name = {1: "initial", 2: "followup_1", 3: "followup_2"}[step]
-    body_tmpl = (TEMPLATES / f"{tmpl_name}.txt").read_text(encoding="utf-8")
+    body_tmpl = pick_template(step, row["contact_type"]).read_text(encoding="utf-8")
+    job_ref, subject_ref = job_refs(row["job_id"])
 
     fields = {
         "name": row["name"],
@@ -287,6 +406,8 @@ def build_message(row, step, cfg, from_addr):
         "company": row["company"],
         "role": row["role"] or "Backend Software Engineer",
         "job_id": row["job_id"] or "",
+        "job_ref": job_ref,
+        "subject_ref": subject_ref,
         "personal_note": row["personal_note"],
         "resume_link": cfg["resume_link"],
         "from_name": cfg["from_name"],
@@ -295,9 +416,16 @@ def build_message(row, step, cfg, from_addr):
         "email": from_addr,
     }
 
-    body = render(body_tmpl, fields)
+    # An empty {{job_ref}} leaves behind the blank line it sat on.
+    body = re.sub(r"\n{3,}", "\n\n", render(body_tmpl, fields))
+    body = wrap_body(body)
+
+    # Same fallback shape as pick_template(): a contact_type with no entry
+    # of its own, or none at all, gets the shared subject.
+    subject_tmpl = (cfg.get("subject_templates", {}).get(row["contact_type"])
+                    or cfg["subject_template"])
     subject = (row["subject"] if step > 1 and row["subject"]
-               else render(cfg["subject_template"], fields))
+               else render(subject_tmpl, fields))
     subject = " ".join(subject.split())  # empty job_id leaves a dangling space
 
     msg = EmailMessage()
@@ -325,6 +453,15 @@ def check_templates():
             msg += ("\n  but found loose .txt files here: " + ", ".join(sorted(stray)) +
                     "\n  -> they belong inside templates/ (see README)")
         sys.exit(msg)
+
+    # A role variant with a mistyped contact_type would silently never be
+    # used, so fail loudly on it instead.
+    for p in sorted(TEMPLATES.glob("*.*.txt")):
+        base, _, ct = p.stem.rpartition(".")
+        if base in BASE_TEMPLATES.values() and ct not in store.CONTACT_TYPES:
+            sys.exit(f"ERROR: templates/{p.name} - {ct!r} is not a contact_type.\n"
+                     f"  valid: "
+                     f"{', '.join(sorted(t for t in store.CONTACT_TYPES if t))}")
 
     missing = [n for n in required if not (TEMPLATES / n).is_file()]
     if missing:

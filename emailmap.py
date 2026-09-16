@@ -2,8 +2,8 @@
 """
 emailmap.py - predict work email addresses from a per-company pattern.
 
-    email_patterns table        contacts.csv
-    company -> domain+pattern   name, company, email, email_source
+    companies.csv               people.csv
+    slug -> domain+pattern      name, company_slug, email, email_source
               \\                    /
                ---> predict --->  proposed address
                         |
@@ -13,7 +13,7 @@ emailmap.py - predict work email addresses from a per-company pattern.
 
 Three rules this enforces, and why:
 
- 1. NEVER overwrite an address you typed yourself. contacts.csv gains an
+ 1. NEVER overwrite an address you typed yourself. people.csv carries an
     'email_source' column: manual | predicted | verified. Anything that is
     not 'predicted' is untouchable. A missing/blank value is treated as
     'manual', so existing rows are safe by default.
@@ -29,40 +29,29 @@ Three rules this enforces, and why:
 
     python3 emailmap.py add acme acme.io "{first}.{last}|{f}{last}"
     python3 emailmap.py learn        # infer patterns from addresses you already have
+                                     # (patterns live in companies.csv)
     python3 emailmap.py list
     python3 emailmap.py predict      # dry run: show the diff
     python3 emailmap.py predict --apply
 """
 
 import argparse
-import csv
-import datetime as dt
+import collections
 import re
-import shutil
 import sqlite3
 import sys
 import unicodedata
 from pathlib import Path
 
+import store
+
 BASE = Path(__file__).resolve().parent
 DB_PATH = BASE / "outreach.db"
-CONTACTS_CSV = BASE / "contacts.csv"
 
 SOURCE_COL = "email_source"
 UNTOUCHABLE = {"manual", "verified"}     # anything not 'predicted' is protected
 
 TOKENS = ["{first}", "{last}", "{f}", "{l}"]
-
-SCHEMA = """
-CREATE TABLE IF NOT EXISTS email_patterns (
-    company      TEXT PRIMARY KEY,
-    domain       TEXT NOT NULL,
-    patterns     TEXT NOT NULL,
-    source       TEXT NOT NULL DEFAULT 'manual',
-    learned_from TEXT NOT NULL DEFAULT '',
-    updated_at   TEXT NOT NULL
-);
-"""
 
 # Words that are not part of anybody's name.
 TITLES = re.compile(
@@ -72,14 +61,21 @@ EMAIL_OK = re.compile(r"^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$")
 
 
 def db():
+    """Only used to check the send pipeline. Patterns live in companies.csv."""
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
-    conn.executescript(SCHEMA)
     return conn
 
 
-def key(company):
-    return re.sub(r"[^a-z0-9]+", "", (company or "").lower())
+def require_company(companies, raw):
+    """Resolve a company argument to a slug that exists in companies.csv."""
+    s = store.slug(raw)
+    if s not in companies:
+        sys.exit(f"ERROR: no company with slug {s!r} in "
+                 f"{store.COMPANIES_CSV.name}.\n"
+                 f"  add a row for it first (slug,name,domain,email_pattern)\n"
+                 f"  known slugs: {', '.join(sorted(companies))}")
+    return s
 
 
 # ------------------------------------------------------------------ names
@@ -132,23 +128,6 @@ def infer_pattern(addr, first, last):
 
 # ------------------------------------------------------------------ csv
 
-def read_contacts():
-    if not CONTACTS_CSV.exists():
-        sys.exit(f"ERROR: {CONTACTS_CSV.name} not found.")
-    with open(CONTACTS_CSV, newline="", encoding="utf-8") as f:
-        r = csv.DictReader(f)
-        return list(r), list(r.fieldnames or [])
-
-
-def write_contacts(rows, fields):
-    backup = CONTACTS_CSV.with_suffix(".csv.bak")
-    shutil.copy2(CONTACTS_CSV, backup)
-    with open(CONTACTS_CSV, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=fields)
-        w.writeheader()
-        for row in rows:
-            w.writerow({k: row.get(k, "") for k in fields})
-    return backup
 
 
 def source_of(row):
@@ -177,99 +156,83 @@ def cmd_add(args):
             sys.exit(f"ERROR: pattern {p!r} has no placeholder.\n"
                      f"  use any of: {', '.join(TOKENS)}\n"
                      f'  e.g. "{{first}}.{{last}}"  or  "{{f}}{{last}}"')
-    conn = db()
-    conn.execute(
-        """INSERT INTO email_patterns
-           (company, domain, patterns, source, learned_from, updated_at)
-           VALUES (?,?,?,'manual','',?)
-           ON CONFLICT(company) DO UPDATE SET
-             domain=excluded.domain, patterns=excluded.patterns,
-             source='manual', updated_at=excluded.updated_at""",
-        (key(args.company), args.domain.lower().lstrip("@"), args.patterns,
-         dt.datetime.now().isoformat(timespec="seconds")))
-    conn.commit()
-    print(f"  {key(args.company)} -> {args.patterns} @{args.domain}")
+    companies = store.load_companies()
+    s = require_company(companies, args.company)
+    companies[s]["domain"] = args.domain.lower().lstrip("@")
+    companies[s]["email_pattern"] = args.patterns
+    store.write_companies(companies.values())
+    print(f"  {s} -> {args.patterns} @{companies[s]['domain']}")
     print("  next: python3 emailmap.py predict")
 
 
 def cmd_learn(args):
     """Read the addresses you already trust and work out the pattern."""
-    conn = db()
-    rows, _ = read_contacts()
+    companies = store.load_companies()
+    people = store.load_people(companies)
     found = {}
-    for row in rows:
-        addr = (row.get("email") or "").strip().lower()
+    for row in people:
+        addr = row["email"]
         if not addr or not EMAIL_OK.match(addr) or source_of(row) == "predicted":
             continue
-        parsed, why = parse_name(row.get("name", ""))
+        parsed, why = parse_name(row["name"])
         if not parsed:
             continue
         pattern = infer_pattern(addr, *parsed)
         if not pattern:
             print(f"  [?] {addr}: no known pattern produces this from "
-                  f"{row.get('name')!r}")
+                  f"{row['name']!r}")
             continue
-        k = key(row.get("company", ""))
-        found.setdefault(k, []).append((pattern, addr.split("@")[1], addr))
+        found.setdefault(row["company_slug"], []).append(
+            (pattern, addr.split("@")[1], addr))
 
     if not found:
         print("Nothing to learn. Add a contact whose address you know is right.")
         return
 
-    for k, hits in found.items():
-        patterns = sorted({p for p, _, _ in hits})
-        domain = hits[0][1]
+    for slug, hits in sorted(found.items()):
+        counts = collections.Counter(p for p, _, _ in hits)
+        patterns = [p for p, _ in counts.most_common()]
+        domain = collections.Counter(d for _, d, _ in hits).most_common(1)[0][0]
         if len(patterns) > 1:
-            print(f"  [warn] {k}: addresses disagree {patterns} - storing all, "
-                  f"most common first")
-        conn.execute(
-            """INSERT INTO email_patterns
-               (company, domain, patterns, source, learned_from, updated_at)
-               VALUES (?,?,?,'learned',?,?)
-               ON CONFLICT(company) DO UPDATE SET
-                 domain=excluded.domain, patterns=excluded.patterns,
-                 source='learned', learned_from=excluded.learned_from,
-                 updated_at=excluded.updated_at""",
-            (k, domain, "|".join(patterns), hits[0][2],
-             dt.datetime.now().isoformat(timespec="seconds")))
-        print(f"  [learned] {k} -> {'|'.join(patterns)} @{domain}  "
+            print(f"  [warn] {slug}: addresses disagree {patterns} - storing "
+                  f"all, most common first")
+        companies[slug]["domain"] = domain
+        companies[slug]["email_pattern"] = "|".join(patterns)
+        print(f"  [learned] {slug} -> {'|'.join(patterns)} @{domain}  "
               f"(from {hits[0][2]})")
-    conn.commit()
+    store.write_companies(companies.values())
 
 
 def cmd_list(args):
-    conn = db()
-    rows = conn.execute("SELECT * FROM email_patterns ORDER BY company").fetchall()
-    if not rows:
+    companies = store.load_companies()
+    have = [c for c in companies.values() if c["email_pattern"]]
+    if not have:
         print("No patterns stored. Add one:\n"
               '  python3 emailmap.py add acme acme.io "{first}.{last}"')
         return
-    for r in rows:
-        print(f"\n{r['company']}  @{r['domain']}   [{r['source']}]")
-        for i, p in enumerate(r["patterns"].split("|")):
-            print(f"   {i+1}. {p}@{r['domain']}")
-        if r["learned_from"]:
-            print(f"   learned from: {r['learned_from']}")
+    for c in sorted(have, key=lambda r: r["slug"]):
+        print(f"\n{c['slug']}  @{c['domain']}   ({c['name']})")
+        for i, pat in enumerate(c["email_pattern"].split("|")):
+            print(f"   {i+1}. {pat}@{c['domain']}")
     print()
 
 
 def cmd_predict(args):
     conn = db()
-    pats = {r["company"]: r for r in conn.execute("SELECT * FROM email_patterns")}
+    companies = store.load_companies()
+    pats = {s: c for s, c in companies.items()
+            if c["email_pattern"] and c["domain"]}
     if not pats:
         sys.exit("No patterns stored. Run 'add' or 'learn' first.")
 
-    rows, fields = read_contacts()
-    if SOURCE_COL not in fields:
-        fields = fields + [SOURCE_COL]
-        print(f"  (will add a '{SOURCE_COL}' column)")
+    people = store.load_people(companies)
 
     changes, skipped = [], []
-    for row in rows:
-        addr = (row.get("email") or "").strip().lower()
+    for row in people:
+        addr = row["email"]
         src = source_of(row)
-        who = row.get("name") or "(no name)"
-        k = key(row.get("company", ""))
+        who = row["name"] or "(no name)"
+        slug = row["company_slug"]
 
         if addr and src in UNTOUCHABLE:
             skipped.append(f"{who}: address is '{src}' - protected")
@@ -278,9 +241,9 @@ def cmd_predict(args):
             skipped.append(f"{who}: already sent to {addr} - changing it would "
                            f"create a duplicate contact")
             continue
-        if k not in pats:
+        if slug not in pats:
             skipped.append(f"{who}: no pattern stored for company "
-                           f"{row.get('company')!r}")
+                           f"{companies[slug]['name']!r}")
             continue
 
         parsed, why = parse_name(who)
@@ -288,14 +251,13 @@ def cmd_predict(args):
             skipped.append(f"{who}: {why}")
             continue
 
-        rec = pats[k]
-        first_pattern = rec["patterns"].split("|")[0]
-        new = render_pattern(first_pattern, *parsed, rec["domain"])
+        rec = pats[slug]
+        plist = rec["email_pattern"].split("|")
+        new = render_pattern(plist[0], *parsed, rec["domain"])
         if new == addr:
             continue
-        alts = [render_pattern(p, *parsed, rec["domain"])
-                for p in rec["patterns"].split("|")[1:]]
-        changes.append((row, addr, new, alts, rec["source"]))
+        alts = [render_pattern(pat, *parsed, rec["domain"]) for pat in plist[1:]]
+        changes.append((row, addr, new, alts))
 
     for msg in skipped:
         print(f"  [skip] {msg}")
@@ -304,30 +266,30 @@ def cmd_predict(args):
         return
 
     print(f"\n{'='*68}")
-    for row, old, new, alts, src in changes:
-        print(f"{row.get('name')}  ({row.get('company')})")
+    for row, old, new, alts in changes:
+        print(f"{row['name']}  ({row['company']})")
         print(f"   {old or '(empty)'}")
-        print(f"   -> {new}      [pattern source: {src}]")
+        print(f"   -> {new}")
         if alts:
             print(f"      fallbacks if it bounces: {', '.join(alts)}")
     print("="*68)
 
     if not args.apply:
         print(f"\n{len(changes)} change(s). DRY RUN - nothing written.")
-        print("Re-run with --apply to write them into contacts.csv.")
+        print(f"Re-run with --apply to write them into "
+              f"{store.PEOPLE_CSV.name}.")
         return
 
-    for row, _, new, _, _ in changes:
+    for row, _, new, _ in changes:
         row["email"] = new
         row[SOURCE_COL] = "predicted"
-    for row in rows:
-        row.setdefault(SOURCE_COL, "")
+    for row in people:
         if not (row.get(SOURCE_COL) or "").strip():
-            row[SOURCE_COL] = "manual" if (row.get("email") or "").strip() else ""
+            row[SOURCE_COL] = "manual" if row["email"] else ""
 
-    backup = write_contacts(rows, fields)
-    print(f"\n{len(changes)} address(es) written to {CONTACTS_CSV.name} "
-          f"(backup: {backup.name})")
+    backup = store.write_people(people)
+    print(f"\n{len(changes)} address(es) written to {store.PEOPLE_CSV.name}"
+          + (f" (backup: {backup.name})" if backup else ""))
     print("These are GUESSES. Check them, then:  python3 outreach.py send --dry-run")
 
 
@@ -337,7 +299,7 @@ def main():
     sub = p.add_subparsers(dest="cmd", required=True)
 
     a = sub.add_parser("add", help="store a pattern for a company")
-    a.add_argument("company")
+    a.add_argument("company", help="the slug from companies.csv")
     a.add_argument("domain", help="e.g. acme.io")
     a.add_argument("patterns", help='"{first}.{last}" or "{first}.{last}|{f}{last}"')
     a.set_defaults(func=cmd_add)
@@ -348,7 +310,7 @@ def main():
 
     d = sub.add_parser("predict", help="fill in missing addresses")
     d.add_argument("--apply", action="store_true",
-                   help="actually write to contacts.csv (default is a dry run)")
+                   help="actually write to people.csv (default is a dry run)")
     d.set_defaults(func=cmd_predict)
 
     args = p.parse_args()

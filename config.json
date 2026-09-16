@@ -8,7 +8,13 @@
   "smtp_port": 587,
   "imap_host": "imap.gmail.com",
   "imap_port": 993,
-  "subject_template": "{{company}} {{job_id}} - {{role}}",
+  "subject_template": "{{company}} {{subject_ref}} - {{role}}",
+  "subject_templates": {
+    "engineer": "Referral request - {{role}}",
+    "engineering_manager": "{{role}} - backend engineer at HiLabs",
+    "hiring_manager": "Application for {{role}} - {{from_name}}",
+    "recruiter": "{{company}} {{subject_ref}} - {{role}}"
+  },
   "daily_cap": 25,
   "min_gap_seconds": 45,
   "max_gap_seconds": 180,
@@ -24,6 +30,6 @@
     "host": "http://127.0.0.1:11434"
   },
   "notegen_hosted": {
-    "model": "openai/gpt-4o-mini"
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
   }
 }

@@ -1,0 +1,50 @@
+email,name,company,job_id,role,personal_note
+pratham@onepercentclub.io,Pratham Churi,1% Club,,SDE-I (Backend),"The role at 1% Club emphasizes ownership and product obsession, which aligns with my experience in developing a real-time multiplayer card game backend in Go, focusing on maintaining and resuming game states efficiently."
+hello@appinventiv.com,HR,Appinventiv,,Software Engineer,"Developing high-quality applications requires scalable code, which aligns with my experience in designing and implementing testable and scalable code at HiLabs."
+vpant@apple.com,Vivek Pant,Apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation."
+ashish_tarun@apple.com,Ashish Tarun,Apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation."
+choudhary_s@apple.com,Shantanu Prabhat,Apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation."
+rabin_banerjee@apple.com,Rabin Banerjee,Apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation."
+rpahuja@apple.com,Rishi Pahuja,Apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation."
+prashant_tripathi@apple.com,Prashant Tripathi,Apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation."
+yashodeep_ahirrao@apple.com,Yashodeep Ahirrao,Apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation."
+tdey@apple.com,Tanush Dey,Apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation."
+maram@geidea.net,Maram Khaled,geidea,4462794898,Software Engineer,
+sonny@geidea.net,Sonny Garcha,geidea,4462794898,Software Engineer,
+salma.samy@geidea.net,Salma Samy,geidea,4462794898,Software Engineer,
+vijayatha@geidea.net,Vijayatha Alur,geidea,4462794898,Software Engineer,
+shreyansh.j@ascendion.com,Shreyansh J.,Ascendion,50340680,Java Backend Engineer,
+vedant.yede@ascendion.com,Vedant Yede,Ascendion,50340680,Java Backend Engineer,
+dhiraj.jayswal@ascendion.com,Dhiraj Jayswal,Ascendion,50340680,Java Backend Engineer,
+harshita.sahu@ascendion.com,Harshita Sahu,Ascendion,50340680,Java Backend Engineer,
+shashwat.parikh@ascendion.com,Shashwat Parikh,Ascendion,50340680,Java Backend Engineer,
+soumen.bhattacharya@ascendion.com,Soumen Bhattacharya,Ascendion,"50340680, 50341085",Java Backend Engineer,
+naveen.jonnalagadda@ascendion.com,Naveen Reddy Jonnalagadda,Ascendion,50340680,Java Backend Engineer,
+sujoy.das@ascendion.com,Sujoy Das,Ascendion,50340680,Java Backend Engineer,
+bijay.das@ascendion.com,Bijay Chandra Das,Ascendion,50340680,Java Backend Engineer,
+,,Optum,2380965,,
+,,BT Group,61954,,
+,,citi,26984162,java developer,
+,,Siemens,520136,Software Engineer Advanced,
+,,Dexcom,JR120521,Software Development Engineer 2,
+,,Syfe,,Backend Engineer (SDE II) - India,
+,,gitlab,8775507002,Intermediate Backend Engineer,
+gurpreet.chahal@uipath.com,Gurpreet Chahal,uipath,https://jobs.ashbyhq.com/uipath/a6ed0fbe-3505-46ab-9ec5-469d8356f8d8,Software Engineer 1,
+sanjeet.manna@uipath.com,Sanjeet Manna,uipath,https://jobs.ashbyhq.com/uipath/a6ed0fbe-3505-46ab-9ec5-469d8356f8d8,Software Engineer 1,
+tanmay.mandal@uipath.com,Tanmay Mandal,uipath,https://jobs.ashbyhq.com/uipath/a6ed0fbe-3505-46ab-9ec5-469d8356f8d8,Software Engineer 1,
+,,paypay,4024283006,Backend Engineer,
+,,databricks,,Full Stack Developer (AI Agents),
+nandlal.chaudhary@gokwik.co,Nandlal Chaudhary,GoKwik,,Software Development Engineer - II,
+naman.goyal@gokwik.co,Naman Goyal,GoKwik,,Software Development Engineer - II,
+anuj.saini@gokwik.co,Anuj Saini,GoKwik,,Software Development Engineer - II,
+sejal.agrawal@gokwik.co,Sejal Agrawal,GoKwik,,Software Development Engineer - II,
+aditya.jangid@ukg.com,Aditya Jangid,UKG,SOFTW019676,Software Development Engineer,
+aditya.jangid@ukg.com,Aditya Jangid,UKG,SOFTW019676,Software Development Engineer,
+aditya.jangid@ukg.com,Aditya Jangid,UKG,SOFTW019676,Software Development Engineer,
+harsh.verma@ukg.com,Harsh Verma,UKG,SOFTW019676,Software Development Engineer,
+mohit.kumar@ukg.com,Mohit Kumar,UKG,SOFTW019676,Software Development Engineer,
+hitesh.kumar@ukg.com,HITESH KUMAR,UKG,SOFTW019676,Software Development Engineer,
+megha.jain@ukg.com,MEGHA JAIN,UKG,SOFTW019676,Software Development Engineer,
+priyansh.sharma@ukg.com,Priyansh Sharma,UKG,SOFTW019676,Software Development Engineer,
+,, Mastercard,411006,Software Engineer - Java Spring Boot,
+,,,JR-0000098160,Java Developer,

@@ -11,6 +11,7 @@ breaking it under load.
 Is {{role}} role still open? If someone else on your team owns it, happy to
 be pointed their way.
 
+{{job_ref}}
 Resume: {{resume_link}}
 
 {{from_name}}

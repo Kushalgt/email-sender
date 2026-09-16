@@ -19,7 +19,7 @@ export OPENROUTER_API_KEY="..."     # put this in .env, then: source .env
 python3 notegen_hosted.py doctor    # is the key set? model configured?
 python3 notegen_hosted.py draft     # generate
 python3 notegen_hosted.py review    # same human gate as notegen.py
-python3 notegen_hosted.py apply     # writes into the same contacts.csv
+python3 notegen_hosted.py apply     # writes into the same jobs.csv
 ```
 
 ## Why it is a separate script
@@ -30,7 +30,7 @@ python3 notegen_hosted.py apply     # writes into the same contacts.csv
 > hand-written personal_note or the script refuses to send.
 
 This feature contradicts that rule, so **`outreach.py` is not modified at all.**
-`notegen.py` writes approved notes into `contacts.csv`, and the existing
+`notegen.py` writes approved notes into `jobs.csv`, and the existing
 "refuse to send an empty note" guard stays exactly as it was. The note is
 AI-drafted but human-approved before it ever reaches the CSV.
 
@@ -59,8 +59,15 @@ AI-drafted but human-approved before it ever reaches the CSV.
 3. **Expand `resume_facts.json`.** It is seeded with only 3 achievements
    pulled from your own templates. The model cannot be more specific than
    this file — this is the single highest-leverage thing you can do.
-4. Drop job descriptions into `jds/`. Lookup order:
-   `jd` column → `jd_file` column → `jds/<email-local-part>.txt` → `jds/<company>.txt`
+4. **Give each opening a job description.** Paste it straight into the `jd`
+   column of `jobs.csv` — that is the simplest route and the only one that
+   supports two different openings at the same company. Lookup order:
+   `jd` column → `jd_file` column → `jds/<company>.txt`
+
+   A note is drafted **once per opening**, not once per person, and is then
+   shared by every contact at that company. So eight contacts at one company
+   cost one model run, not eight. The prompt deliberately contains no
+   recipient name, and the validator will reject a note that names one.
 
 ## Use
 
@@ -68,7 +75,7 @@ AI-drafted but human-approved before it ever reaches the CSV.
 python3 notegen.py doctor    # is Ollama up? model pulled? JDs found?
 python3 notegen.py draft     # generate
 python3 notegen.py review    # [a]pprove [e]dit [r]eject — the human gate
-python3 notegen.py apply     # write into contacts.csv (backs it up first)
+python3 notegen.py apply     # write into jobs.csv (backs it up first)
 python3 outreach.py send --dry-run   # read the real emails before sending
 ```
 

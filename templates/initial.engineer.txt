@@ -1,0 +1,29 @@
+Hi {{first_name}},
+
+{{personal_note}}
+
+A little about me: I am a backend engineer at HiLabs, working mainly
+with Java and Spring Boot on PostgreSQL. The work I enjoyed the most
+was rebuilding our export pipeline. It was slow and used too much
+memory, so I moved it to database cursor streaming with a
+producer-consumer design and parallel I/O. Export time came down from
+45 minutes to 2 minutes, and the memory problem went away.
+
+I am applying for {{role}} at {{company}}, and I would be very
+grateful if you could refer me internally.
+
+Please do this only if you feel comfortable. I understand a referral
+carries your name, so it is completely fine to say no and I will not
+mind at all.
+
+If a referral is not possible, even a small hint would help me a lot.
+Is the team still hiring, and who is looking after this opening?
+
+{{job_ref}}
+Resume: {{resume_link}}
+
+Thank you for your time.
+
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

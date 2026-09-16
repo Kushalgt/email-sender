@@ -52,9 +52,13 @@ CASES = [
      "Your team is moving billing off the monolith, which is usually the messy "
      "half. I did a Kafka-based extraction at HiLabs last quarter.",
      True),
+    # Riak, not Cassandra: Cassandra was added to resume_facts.json skills
+    # after this test was written, which made the note legitimately grounded
+    # and silently turned this case green. Any stem used here must be absent
+    # from BOTH resume_facts.json and the JD above.
     ("BLOCK hyphenated compound, ungrounded stem",
      "Your team is moving billing off the monolith, which is usually the messy "
-     "half. I ran the Cassandra-based ingest layer at HiLabs last quarter.",
+     "half. I ran the Riak-based ingest layer at HiLabs last quarter.",
      False),
     ("BLOCK too short",
      "Nice job posting. I use Java.",
@@ -80,6 +84,22 @@ r = ng.validate(dup, D, JD, CONTACT, C, previous=[dup])
 ok = bool(r)
 fails += 0 if ok else 1
 print(f"[{'ok ' if ok else 'FAIL'}] BLOCK duplicate of an earlier note")
+if r:
+    print(f"         rejected because: {'; '.join(r)}")
+
+# A note is now written per OPENING and shared by every contact at that
+# company, so the recipient's name is no longer in the allow-list. The name
+# has to sit mid-sentence to be caught: a sentence-INITIAL capitalised word is
+# deliberately ignored by the entity heuristic (otherwise the first word of
+# every sentence would flag), so "Priya, your team..." still slips through.
+# That limitation is pre-existing and unchanged here.
+named = ("Your team is moving billing off the monolith, Priya, which is the "
+         "hard part. I did a similar Kafka extraction at HiLabs last quarter.")
+r = ng.validate(named, D, JD, CONTACT, C, previous=[])
+ok = bool(r)
+fails += 0 if ok else 1
+print(f"[{'ok ' if ok else 'FAIL'}] BLOCK a recipient name mid-note "
+      f"(notes are shared per opening)")
 if r:
     print(f"         rejected because: {'; '.join(r)}")
 

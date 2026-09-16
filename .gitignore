@@ -1,6 +1,8 @@
 outreach.db
 suppress.csv
-contacts.csv
 PAUSE
 .env
 jds
+*.csv.bak
+*.csv.tmp
+outreach.db.pre-split

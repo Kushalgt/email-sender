@@ -48,7 +48,7 @@ number** from your HiLabs work. That single edit will do more than the whole
 script.
 
 **5. Verify threading — do this before your first real batch.** Add your own
-second email address to `contacts.csv`, run a real send, then open the
+second email address to `people.csv`, run a real send, then open the
 message and view the raw source. Check whether the `Message-ID` you see
 matches what's in the DB:
 
@@ -74,9 +74,80 @@ python3 outreach.py suppress a@b.com # permanent do-not-contact
 touch PAUSE                          # kill switch; delete the file to resume
 ```
 
-Workflow: append rows to `contacts.csv` during the evening, writing one real
-`personal_note` per person. The scheduler picks them up next morning.
-Re-importing is safe — existing rows are never overwritten or re-sent.
+Workflow, in the order that costs you least typing:
+
+1. **New opening** → one row in `jobs.csv` (`company_slug`, `job_id`,
+   `job_title`), and paste the job description into its `jd` cell.
+   A new company also needs one row in `companies.csv`.
+2. **Write the note once per opening** — by hand, or with `notegen.py`.
+   It is shared by everyone you contact at that company, so you write it
+   once instead of once per person.
+3. **New people** → one short row each in `people.csv`: name,
+   `company_slug`, and `contact_type`. Leave `email` blank and let
+   `python3 emailmap.py predict --apply` fill it in from the company's
+   pattern.
+
+The scheduler picks them up next morning. Re-importing is safe — existing
+rows are never overwritten or re-sent.
+
+Every person at a company is contacted about every opening at that company;
+that join is computed at load time, so there is nothing to maintain. A person
+receives at most one message per day, so someone who is a contact for two
+openings hears about the second one on the following run.
+
+### The three files
+
+| File | Holds | Key |
+|---|---|---|
+| `companies.csv` | display name, mail domain, email pattern | `slug` |
+| `jobs.csv` | one row per opening: title, `personal_note`, `jd` | `(company_slug, job_id)` |
+| `people.csv` | one row per contact: name, `contact_type` | `email` |
+
+`slug` is the join key and never reaches the database — `outreach.db` stores
+the display name from `companies.csv`, because its primary key is
+`(email, company, job_id)` and a changed company string would re-send to
+someone already contacted.
+
+`contact_type` is one of `engineer`, `engineering_manager`, `hiring_manager`,
+`recruiter`, or blank. It picks the template: `templates/initial.<type>.txt`
+if that file exists, otherwise `templates/initial.txt`. All four variants
+exist, so a blank only ever falls back to the generic `initial.txt`.
+
+Each type is written for the question that person is actually asking. The
+peer-engineer mail asks for a referral outright, because at most companies
+the referral programme pays them and they are the best route in. The two
+manager mails deliberately do **not** use the word "referral" — a manager
+can simply interview you, and asking them to refer you to their own req
+reads as a misunderstanding of their role; they are asked for a short
+conversation or a pointer to the right team instead.
+
+Subject lines come from `subject_templates` in `config.json`, keyed by the
+same `contact_type`, and fall back to the shared `subject_template` the same
+way the body templates do. The recruiter subject keeps the terse
+`company + id + role` form on purpose: it is the most useful thing for
+someone routing a req into an ATS, and only reads as automated to the other
+three.
+
+### `job_id` holds an ID *or* a link
+
+Job postings give out either a req ID (`200677836`) or just a URL, so
+`job_id` accepts whichever you have, and some rows have neither.
+`job_refs()` in `outreach.py` turns that one column into two values the
+templates use:
+
+- `{{job_ref}}` — a whole self-labelling body line: `Req ID: 200677836`, or
+  `Posting: https://…`, or nothing at all. It never prints a label with an
+  empty value, and `build_message()` closes up the blank line it leaves.
+- `{{subject_ref}}` — the ID only. A pasted URL is dropped here, because a
+  60-character link in a subject line is unreadable.
+
+Templates must use these, never `{{job_id}}` directly.
+
+Long lines are re-flowed to 72 columns by `wrap_body()` after substitution,
+since `{{personal_note}}` and `{{role}}` expand well past the hand-wrapped
+margin. Paragraphs holding a URL and indented paragraphs are left untouched,
+which is what keeps the signature block on three lines and the recruiter
+mail's aligned columns aligned.
 
 ---
 
@@ -172,6 +243,7 @@ Set the credentials as *user* environment variables, not session ones.
 | Weekend skip | `skip_weekends` | true |
 | Kill switch | — | `touch PAUSE` |
 | Dedupe | — | SQLite PK on (email, company, job_id) |
+| One message per person per day | — | always on |
 | Unfilled-placeholder abort | — | always on |
 | Empty personal_note refusal | — | always on |
 

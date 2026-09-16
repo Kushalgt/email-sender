@@ -1,0 +1,31 @@
+Hi {{first_name}},
+
+{{personal_note}}
+
+I would like to apply for {{role}} at {{company}}. I have laid out my
+details below so they are easy to go through:
+
+  Current     Software Development Engineer I, HiLabs
+  Education   B.Tech, Indian Institute of Technology Delhi
+  Core stack  Java, Spring Boot, Hibernate, Kafka, Redis, PostgreSQL
+  Also        Docker, Kubernetes, AWS, Python, FastAPI
+  Shipped     export pipeline redesign, 45 minutes to 2 minutes;
+              schema-per-tenant multi-tenancy; Kafka audit framework
+              with a dead-letter queue and exponential backoff
+  Coding      Codeforces Expert (1634), LeetCode Knight, 40+ contests
+
+If there is an online assessment in the process, I should be
+comfortable with that step.
+
+{{job_ref}}
+Resume: {{resume_link}}
+
+I am happy to share anything else the process needs. And if this
+should go to a colleague instead, please let me know who and I will
+write to them directly.
+
+Thank you for your time.
+
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

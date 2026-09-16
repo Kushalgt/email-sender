@@ -1,0 +1,337 @@
+company_slug,job_id,job_title,personal_note,jd,jd_file
+1_club,,SDE-I (Backend),"The role at 1% Club emphasizes ownership and product obsession, which aligns with my experience in developing a real-time multiplayer card game backend in Go, focusing on maintaining and resuming game states efficiently.",,jds/1% Club.txt
+appinventiv,,Software Engineer,"Developing high-quality applications requires scalable code, which aligns with my experience in designing and implementing testable and scalable code at HiLabs.",,jds/Appinventiv.txt
+apple,200677836,"Software Engineer - Java, Spring Boot and Microservices","Apple develops highly reliable, scalable, and maintainable enterprise applications that can match significant volumes. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved designing scalable solutions for data isolation.",,jds/apple.txt
+geidea,4462794898,Software Engineer,"Developing and maintaining scalable backend services and REST APIs using Java and Spring Boot is a core responsibility of the Software Engineer role at Geidea. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot, demonstrating my ability to design efficient data models for scalable applications.",,jds/geidea.txt
+ascendion,50340680,Java Backend Engineer,"The role requires designing and implementing high-quality Java applications using Spring Boot and Microservices. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which involved optimizing data isolation.",,jds/Ascendion.txt
+ascendion,50341085,Java Backend Engineer,"The role involves designing, developing, and implementing high-quality Java applications using Spring Boot and Microservices architecture. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and PostgreSQL, which enhanced data isolation.",,jds/Ascendion.txt
+optum,2380965,,"The role requires solid engineering skills for OCDC Hardening on Azure and E2E engineering delivery. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs using Spring Boot and Hibernate, which aligns with the strong Java tech stack knowledge required for this position.",,jds/optum.txt
+bt_group,61954,,,,
+citi,26984162,java developer,,,
+siemens,520136,Software Engineer Advanced,,,
+dexcom,JR120521,Software Development Engineer 2,,,
+syfe,,Backend Engineer (SDE II) - India,"Syfe is fundamentally changing how people build wealth through a holistic approach to managing money. I engineered a schema-per-tenant multi-tenancy architecture at HiLabs, which involved resolving tenant schemas for data isolation, aligning with the need for robust backend systems.",,jds/syfe.txt
+gitlab,8775507002,Intermediate Backend Engineer,,,jds/gitlab.txt
+uipath,https://jobs.ashbyhq.com/uipath/a6ed0fbe-3505-46ab-9ec5-469d8356f8d8,Software Engineer 1,"The role involves building robust, scalable, and high-performance systems for the Data Fabric platform team. I developed an AI-powered rule management platform that enabled business rules to be created and executed from natural language, which aligns with the focus on AI-driven solutions.",,jds/uipath.txt
+paypay,4024283006,Backend Engineer,,,
+databricks,,Full Stack Developer (AI Agents),,,
+gokwik,,Software Development Engineer - II,"The role requires experience designing and scaling event-driven architectures using Kafka or similar messaging systems. I designed and implemented a scalable asynchronous audit logging framework at HiLabs using Kafka, ensuring reliable event delivery while maintaining low request latency.",,jds/GoKwik.txt
+ukg,SOFTW019676,Software Development Engineer,UKG is focused on developing and maintaining automated tests and engineering utilities. I built an AI-powered rule management platform that involved creating reliable and maintainable code for automation solutions.,,jds/UKG.txt
+mastercard,411006,Software Engineer - Java Spring Boot,,,
+sixt,https://jobs.smartrecruiters.com/SIXT/744000148143553-software-development-engineer-ii-java-backend-?trid=2d92f286-613b-4daf-9dfa-6340ffbecf73,Software Development Engineer II (Java Backend),,"YOUR ROLE AT SIXT
+
+You will design and build robust backend services in Java that power personalized, data-driven customer communication workflows
+You will contribute to the design and evolution of distributed, event-driven systems that operate at campaign level and at global scale
+You will develop and maintain shared libraries and internal tooling that improve reliability and delivery speed across the CCOM engineering team
+You will collaborate closely with product, marketing, and engineering stakeholders to translate complex communication workflows into scalable technical solutions
+You will actively integrate AI coding tools such as Claude and Cursor into your daily development workflow, helping to embed AI-assisted engineering as a standard practice within the team
+
+Your Skills Matter
+
+You hold a B.Tech, B.E, or Master's Degree in Computer Science or a related discipline
+You bring 3–5 years of hands-on backend engineering experience, ideally in cloud-native or distributed systems environments where scalability and reliability were non-negotiable
+You have solid, production-level experience with Java and Springboot, and are comfortable working within a modern microservices architecture
+You have practical exposure to designing or contributing to distributed systems and understand the fundamentals of building services that are resilient and maintainable at scale
+You are familiar with event-driven patterns and message brokers such as Apache Kafka, and understand how pub-sub models support loosely coupled system design
+You actively use AI coding assistants such as Claude or Cursor to accelerate your development, while applying sound engineering judgment to validate, review, and own the output",
+spectrocloud,https://careers.spectrocloud.com/jobs/6311502-software-engineer/applications/new,Software Engineer,,"QualitiesAs a software engineer at Spectro Cloud, you’ll succeed by embracing adaptability, tackling complex challenges, and navigating dynamic environments with confidence. Success in this role depends on your ability to break down intricate challenges into manageable steps and deliver value through iterative, test-and-learn approaches. At Spectro Cloud, we champion innovation and collaboration, fostering a culture where shared ideas drive progress.
+
+QualificationsWhile we don't expect candidates to check every box, we do look for the following when assessing applicants:
+
+Bachelor’s degree in Computer Science or a related field
+2+ years of relevant experience in software development
+Proficiency in at least one modern programming language such as Go or Java
+Solid understanding of containerization and orchestration concepts, including Kubernetes
+Experience with designing and consuming REST APIs
+Familiarity with micro services architecture and best practices
+Exposure to cloud platforms (AWS, Azure, GCP, etc.)
+Familiarity with Linux-based environments and common command-line tools
+Basic knowledge of databases (SQL or NoSQL) and data modeling principles
+Strong problem-solving skills and ability to work collaboratively in a team environment
+Kubernetes certification (CKA or CKAD) is a plus",
+bt_group,62022,Associate engineer,"BT Group is looking for an associate engineer with experience in developing microservices using Spring Boot and Kafka. I designed and implemented a scalable asynchronous audit logging framework at HiLabs using Spring AOP and Kafka, ensuring reliable event delivery.","Essential Skills / Experience
+
+Minimum 1 year of professional experience in software development and application support.
+Hands-on experience with Java (OpenJDK 17), J2EE, and object-oriented programming concepts.
+Experience developing Microservices using Spring Boot, Spring Cloud, and Spring Data.
+Good understanding of RESTful APIs and SOAP Web Services.
+Experience working with SQL and NoSQL databases.
+Knowledge of Apache Kafka or similar event-driven messaging platforms.
+Experience with API documentation and testing tools such as Swagger/OpenAPI.
+Understanding of software development lifecycle, version control, testing, and debugging practices.
+Strong problem-solving skills and the ability to work collaboratively within a team.
+Good communication skills and a willingness to learn and adapt to new technologies.",
+goldman_sachs,179366,The Core Engineering - KYC Model Eng - Associate,"Goldman Sachs is looking for candidates with demonstrated experience in leveraging AI-assisted developer tools to enhance engineering productivity. I built an AI-powered rule management platform at HiLabs that allowed business rules to be created and executed from natural language, showcasing my ability to integrate AI into software development.","QUALIFICATIONS
+
+A successful candidate will possess the following attributes:
+
+A Bachelor's or Master's degree in Computer Science, Computer Engineering, or a similar field of study.
+2.5+ years professional software development experience
+Expertise in Java development. 
+Experience in automated testing and SDLC concepts.
+The ability (and tenacity) to clearly express ideas and arguments in meetings and on paper.
+Experience in some of the following is desired and can set you apart from other candidates: 
+
+Demonstrated experience or a strong interest in leveraging AI-assisted developer tools to enhance engineering productivity and accelerate software delivery.
+Ability to critically evaluate AI‑generated outputs and enhance them to production‑grade quality. 
+Proven ability to critically evaluate AI-generated outputs and refine them to meet production-grade standards of quality, reliability, and maintainability.
+Hands-on proficiency with AI coding assistants such as GitHub Copilot, Claude Code, and Devin to expedite code authoring, refactoring, and debugging across all phases of the Software Development Life Cycle (SDLC).
+Effective utilization of AI pair-programming tools to generate boilerplate code, unit tests, and technical documentation, enabling greater focus on architectural design and complex problem-solving.
+Application of established prompt engineering best practices to elicit high-quality, context-aware code recommendations and reduce iteration cycles during development.
+Practical integration of autonomous AI agents (e.g., Devin) for routine engineering tasks, including bug triage, dependency upgrades, and minor feature implementations, thereby freeing engineering bandwidth for higher-impact initiatives.
+Adoption of AI-driven code review tools to proactively identify defects, security vulnerabilities, and performance bottlenecks earlier in the development cycle, strengthening overall quality gates.
+Experience with: 
+UI/UX development
+API design, such as to create interconnected services
+message buses or real time processing
+relational databases
+knowledge of the financial industry and compliance or risk functions
+influencing and collaborating with stakeholders.",
+jp_morgan_chase,210773698,"Software Engineer II - Java FullStack, React and AWS","The role involves executing standard software solutions and developing secure, high-quality code with consideration of technical implications. I have experience in developing real-time Python pipelines and engineering complex models, which required careful consideration of data integrity and system interactions.","Job responsibilities
+
+ 
+
+Executes standard software solutions, design, development, and technical troubleshooting
+Writes secure and high-quality code using the syntax of at least one programming language with limited guidance
+Designs, develops, codes, and troubleshoots with consideration of upstream and downstream systems and technical implications
+Leverages enterprise-authorized AI coding assist tools within the work environment to improve code quality, delivery speed, and productivity (e.g., code generation/refactoring, unit test creation, documentation), while validating outputs through peer review, automated testing, and secure coding standards
+Applies knowledge of tools within the Software Development Life Cycle toolchain, including enterprise-authorized AI-assisted development and automation capabilities, to improve the value realized by automation
+Applies technical troubleshooting to break down solutions and solve technical problems of basic complexity
+Gathers, analyzes, and draws conclusions from large, diverse data sets to identify problems and contribute to decision-making in service of secure, stable application development
+Learns and applies system processes, methodologies, and skills for the development of secure, stable code and systems
+ 
+
+ 
+
+Required qualifications, capabilities, and skills
+
+ 
+
+Formal training or certification on software engineering concepts and 2+ years applied experience
+Tech Skills ; FullStack - React, TypeScript, Java/Python Backend,  AI skills, AWS infrastructure
+Hands-on practical experience in system design, application development, testing, and operational stability
+Experience in developing, debugging, and maintaining code in a large corporate environment with one or more modern programming languages and database querying languages
+Understanding of responsible AI use in engineering workflows, including data sensitivity considerations, secure handling of inputs/outputs, and adherence to resiliency and security expectations
+Exposure to agile methodologies such as CI/CD, Application Resiliency, and Security
+Hands-on experience using enterprise-authorized AI-assisted software development tools within the work environment (e.g., for coding, testing, troubleshooting, or documentation) with demonstrated ability to critically evaluate and validate AI-generated output",
+jp_morgan_chase,210779478,Java Full Stack Software Engineer II,"The role involves writing secure and high-quality code using Java and ReactJS. I redesigned an asynchronous export pipeline at HiLabs, significantly improving performance and efficiency.","Job responsibilities
+Executes standard software solution, design, development, and technical troubleshooting
+Writes secure and high-quality code using Java and ReactJS.
+Leverages enterprise-authorized AI coding assist tools within the work environment to improve code quality, delivery speed, and productivity (e.g., code generation/refactoring, unit test creation, documentation), while validating outputs through peer review, automated testing, and secure coding standards.
+Designs, develops, codes, and troubleshoots with consideration of upstream and downstream systems and technical implications
+Applies knowledge of tools within the Software Development Life Cycle toolchain, including enterprise-authorized AI-assisted development and automation capabilities, to improve the value realized by automation
+Applies technical troubleshooting to breakdown solutions and solve technical problems of basic complexity
+Gathers, analyzes, and draws conclusions from large, diverse data sets to identify problems and contribute to decision-making in service of secure, stable application development
+Learns and applies system processes, methodologies, and skills for the development of secure, stable code and systems
+
+ 
+
+Required qualifications, capabilities, and skills
+ 
+Formal training or certification on software engineering concepts and 2+ years applied experience 
+Hands-on practical experience with Java, ReactJS and AWS. Exposure to AI tools
+Experience in developing, debugging, and maintaining code in a large corporate environment with one or more modern programming languages and database querying languages
+Hands-on experience using enterprise-authorized AI-assisted software development tools within the work environment (e.g., for coding, testing, troubleshooting, or documentation) with demonstrated ability to critically evaluate and validate AI-generated outputs.
+Understanding of responsible AI use in engineering workflows, including data sensitivity considerations, secure handling of inputs/outputs, and adherence to resiliency and security expectations.
+Experience across the whole Software Development Life Cycle
+Exposure to agile methodologies such as CI/CD, Application Resiliency, and Security",
+master_card,411006,Software Engineer - Java Spring Boot,"MasterCard is looking for a Software Engineer to build Java and Spring Boot microservices and event-driven integrations. I designed and implemented a scalable asynchronous audit logging framework using Spring AOP and Kafka, ensuring reliable event delivery.","Roles and Responsibilities
+• Design, develop, test, deploy, and support software services based on technical and functional requirements.
+• Build Java and Spring Boot microservices, REST APIs, and Kafka-based event-driven integrations.
+• Apply object-oriented design, SOLID principles, reusable patterns, and secure coding practices.
+• Create unit, component, integration, and regression tests and participate in peer reviews.
+• Troubleshoot application, data, messaging, performance, and production issues.
+• Contribute to CI/CD, observability, operational readiness, resiliency, and automation.
+• Collaborate with product, architecture, testing, operations, and dependent engineering teams.
+• Guide less-experienced team members and independently own complex work from analysis through production support.
+Essential Skills
+• Hands-on Java and Spring Boot development experience.
+• Experience with microservices, REST APIs, Kafka or similar messaging platforms, and event-driven architecture.
+• Knowledge of SQL or NoSQL databases, Git, automated testing, CI/CD, containers, and cloud-native platforms.
+• Understanding of secure, scalable, resilient, and observable software design.
+• Bachelor's degree in computer science, information technology, engineering, or a related discipline, or equivalent practical experience.
+All About You
+• Experience working in Agile delivery environments and across the software development lifecycle.
+• Clear communication, collaboration, problem-solving, and stakeholder-management skills.
+• Ability to work with globally distributed product, engineering, architecture, operations, and business teams.
+• Hands-on experience using AI-assisted engineering tools, including GitHub Copilot and Claude CLI, to improve engineering efficiency is required.
+• Payments or financial-services domain knowledge is preferred.",
+amadeus,R35978,Software Development Engineer -Java,,,
+appinventiv,https://www.linkedin.com/jobs/search-results/?currentJobId=4463012246&eBP=CwEAAAGghXTQmx6jmuSWbrkqYbvVc4O9ZxlP6ZaCKJLI2kLFtGff_o_rKblmPNpbi-cAA6bvaRtOMzc-PDCOZURsYhvG0lftLeGGWgRKGrg6jxjFqcNRqimkSBXCTTwP_tYzdf5uvZbSyGe388sJqVbfoLB2aokdylGx8eOwoXs5kLVzspZZbDo8zg70QyYF_PI9zUr7ovzrrpDPvth53OojU2gCIqHe2EfVf8lokklUYnz8SDU56HGe6spbl0io1GmZCXihpDrhH4FtDZvL9Kxj52usAqlv7jxiFgSGeP6KdZzsZWuJxciOYwIYEKGpkTD3pBnJ8Vv9E5PJY9CbcCwQBdAmv3xASj_UfSure2VLRIra4BEdCPLaQJdiWKJXtQZ7256XW9LOpz5bksSeUl075jHLdRk5g_Qs9H3Eeb4wYqWMVbnyg0X7bvR8g3tS-vlqZDBjPIp-vG63KXPQabumqiUFA_k3T3fvYUNfDALNrFSzFllqqcWg-ZH6e6EOjA-sIJWgvc7eEw&refId=rNq%2BDHtCjpmtcIoIxRbNXw%3D%3D&trackingId=1OWxy%2FrjBkTX%2F8qU1ZGusQ%3D%3D&keywords=full-time%20Software%20Engineer%20or%20Java%20Software%20Engineer%2C%20on-site%20or%20hybrid%20or%20remote&origin=PREFERENCES_LANDING&referralSearchId=5jK7M5LW12BiudeM6IQ2Cw%3D%3D&geoId=102713980&f_TPR=r86400&f_AL=true,Software Engineer,,,
+astra,https://www.linkedin.com/jobs/search-results/?currentJobId=4463231465&eBP=CwEAAAGghX6iGqHJ9RC_NYw1dnyMgZGnQ4J9VFeCrJYBkSs2MsjgTHv5B6AnTfN9WVakM75LA0nfiK9-C8Ghl8XwvYXoNWJ4xSt470TmbS3SmNHtnQkCvauEL7VHRU2hiOGa43t5G-WnrnwqO0wg4TILmrfZLS-1jJGbF8WUF2eKQUrn7qGhl_ZO-IJPE13Jl8BxR64VGI6EVkWAvcCJplGtygIbjClevJmIF8eXdWrhdgsO8AC_a7l0_uSa7r3DbJdc8JmVGDbZ-SDGG1E82ZFfCw7cWKZ54ks_8fCAOZU600_8pClHfcWlzWAWmBpCkX3bOXoLXEdlhc8UgVrN9vvHTBcYiFcLMPipyu2lMb3VqdTuaQiGND0QdwM-_kPt1-fqRrbTfsLLZDP2mofdLm2XKTtet02vpwFodModrOlrzFrLEjh6ZoRB3dq_tryL7XT3wiNqcQ4FQI1CQitXO-ss2gwY5Mg1v4d0EQRZtT2l-iMVC7CqL3D1YI63HGlxjpTIlpfwB34&refId=fwlN%2FJ%2FfRE94ekueAoW5ag%3D%3D&trackingId=YES7PXY1znWZPwrQepakjA%3D%3D&keywords=full-time%20Software%20Engineer%20or%20Java%20Software%20Engineer%2C%20on-site%20or%20hybrid%20or%20remote&origin=PREFERENCES_LANDING&referralSearchId=rNq%2BDHtCjpmtcIoIxRbNXw%3D%3D&geoId=102713980&f_TPR=r604800&f_AL=true,SDE 2 Backend,"Role OverviewAt Astra Security, we are building the future of AI-driven cybersecurity, including Autonomous Pentesting- an experience that helps teams automatically discover, test and secure Web & Mobile applications, Cloud and APIs at scale.As a Backend Engineer, you will play a key role in designing, building, and maintaining the core backend services that power our platform. You'll work on developing scalable APIs, distributed services, and backend systems that enable platform capabilities. You'll collaborate closely with product managers, frontend engineers, DevOps, and fellow backend engineers to build reliable, secure, and high-performance systems. During your journey with us, you'll have the opportunity to contribute to new product initiatives from 0-1, influence technical decisions, and own features from design through production.
+Here's what's in it for you
+Design, develop, and maintain scalable backend services, APIs, and distributed systems.
+Own features end-to-end- from technical design and implementation to deployment and monitoring.
+Build and maintain RESTful APIs and backend services that power core platform functionality.
+Leverage AI effectively to improve engineering productivity, code quality, testing, documentation, and debugging while ensuring all code meets production-quality standards through critical review and validation
+Design clean, maintainable, and reusable software following object-oriented design principles.
+Collaborate with frontend, product, DevOps, QA, and engineering teams to deliver high-quality features.
+Design efficient database schemas and optimise queries for performance and scalability.
+Build reliable asynchronous workflows using queues, events, and background processing.
+Participate in code reviews and contribute to engineering standards and best practices.
+Ship production-ready code frequently in a fast-paced engineering environment.
+Continuously improve developer productivity, system reliability, and engineering
+What we are looking 
+3- 6 years of experience building backend applications in a product-based or SaaS environment.
+Strong proficiency in at least one object-oriented programming language such as Java, C#, PHP, Python, or C++.
+Strong understanding of Object-Oriented Programming (OOP), design patterns, and software engineering principles
+Strong engineering judgment by validating, refining, and taking ownership of AI-assisted outputs.
+Experience building and maintaining RESTful APIs.
+Good understanding of distributed systems, asynchronous processing, and event-driven architectures.
+Experience working with relational databases such as PostgreSQL or MySQL, including schema design and query optimisation.
+Understanding of Dependency Injection, ORM frameworks, data validation, caching, logging, and error handling.
+Strong debugging, analytical, and problem-solving skills.
+Excellent communication skills and ability to work collaboratively in cross-functional teams.",,
+cbts,0305,DEVELOPER – APPLICATION DEVELOPMENT,,"1.     Role Purpose (1–3 lines): Performs and supports the development and enhancement of secure, scalable, and high-performance‑performance backend systems. Builds reliable APIs, microservices, and integration components while following engineering best practices and contributing to the stability and efficiency of enterprise-grade applications.
+ 
+2.     Key Responsibilities:
+·      Develop and maintain server-side logic, APIs, and integration services for large-scale applications
+·      Improve application performance, scalability, and reliability through code quality and database tuning.
+·      Implement microservices architecture using modern frameworks (e.g., Node.js, Java Spring Boot).
+·      Integrate authentication, authorization, and data security mechanisms into application backbones.
+·      Collaborate with front-end, DevOps, and QA teams to deliver end-to-end, cloud-ready solutions.
+·      Troubleshoot production issues, perform root-cause analysis, and drive resolution improvements.
+·      Focus on continuous learning and emerging trends.",
+ncr_voyix,R0158027,Software Engineer (I) - Edge,,"About Us: NCR Voyix Corporation (NYSE: VYX) is a global technology company leading how the world connects, interacts, and transacts with business. Our assisted and self–service solutions and comprehensive support services address the needs of hospitality and retail sectors in more than 40+ countries
+Role Overview: Join our market-leading, innovative Edge platform team at NCR Voyix. We are dedicated to pushing the boundaries of technology and delivering top-notch solutions to our Customers. As a Golang Developer, you will be an integral part of our EDGE team, tackling complex development test and deployment tasks. You may also assist in defining stories on the backlog, participate in design activities, and collaborate with QA and internal stakeholders to ensure the delivery of high-quality solutions.
+Key Responsibilities:
+Take on complex development tasks within the team.
+Refactor code based on code reviews to maintain code quality.
+Debug, diagnose and troubleshoot issues
+Liaise with QA and internal stakeholders to ensure the right solution and quality.
+Adhere to high engineering standards by following directions set by engineering leads and providing feedback when processes can be improved.
+Be a great team player by demonstrating a strong learning attitude and growth mindset.
+Core Skills (Must have):
+Strong development skills: Emphasize clean code, agile methodologies, and SOLID principles. Strong experience in designing software solutions
+Proficiency in Go programming language: Good experience in developing high-performance applications using Golang. Familiarity with Go's concurrency model, goroutines, and channels. Ability to write efficient, scalable, and maintainable code.
+Multi-threaded development: Experience in designing and implementing multi-threaded applications.
+GIT: Experience with version control systems, particularly GIT.
+Communication: Excellent written, verbal communication skills.
+Additional preferred skills ( Good to have)
+Cloud computing: Exposure to cloud platforms, ideally Google Cloud Platform (GCP).
+Containerization: Good to have experience with Docker and Kubernetes for containerization and orchestration. Ability to design, deploy, and manage containerized applications. Familiarity with Kubernetes architecture, components, and best practices for scaling and maintaining clusters.
+Microservices architecture experience
+Additional technologies: Familiarity with Linux OS, Networing concepts and protocols within a Linux environment, bash scripting, Virtualization technologies, Linked Service Mesh, Couch, Grafana/OTEL, GCP cloud logging, Fruendt, GitHub/GitHub actions, KCC, GraphQL, and Kubeadm.
+Basic Qualifications:
+Degree in a numerate discipline.
+Excellent programming skills in one or more modern languages.
+Strong grounding in Computer Science.
+Why Join Us:
+Be part of a cutting-edge team working on innovative projects.
+Opportunity to work with a diverse and talented team.
+Continuous learning and professional growth.
+Offers of employment are conditional upon passage of screening criteria applicable to the job
+
+",
+niit,3203,SOFTWARE ENGINEER-II,,"Job overview
+The Software Engineer II is responsible for designing, developing, and enhancing software applications that support digital learning products and content delivery. The role works closely with cross-functional teams to deliver scalable, secure, and high-quality technology solutions while contributing to technical improvements and innovation. 
+
+ 
+
+Roles and responsibility
+
+Design, develop, test, and maintain learning technology applications and platforms.
+Translate business and product requirements into technical solutions.
+Build and integrate APIs, databases, and third-party systems, including LMS platforms.
+Review code, troubleshoot issues, and resolve defects to ensure application stability.
+Participate in architecture discussions and recommend technical improvements.
+Collaborate with content, product, and technology teams to deliver project objectives.
+Ensure software quality through testing, code reviews, and best development practices.
+Optimize application performance, security, and scalability.
+Maintain technical documentation and support deployment activities.
+Stay updated on emerging technologies and drive continuous improvement initiatives.
+",
+mobility_global,326433,Associate Software Engineer (React+Java),,"Technical Skills and Technologies:
+
+Core Development
+
+Strong proficiency in Java and object-oriented programming.
+
+Experience building and maintaining backend services and enterprise web applications.
+
+Frontend Development
+
+Experience with modern web development technologies, including HTML, React.js and related frameworks or libraries.
+
+React.js and JavaScript knowledge is desirable.
+
+Cloud and Infrastructure
+
+Experience with AWS or other cloud environments.
+
+Exposure to cloud-native development concepts and services such as Lambda, S3, API Gateway, EKS, containers, and related technologies.
+
+Familiarity with Docker, containerized application deployment, or Kubernetes-based environments is desirable.
+
+Data and APIs
+
+Experience working with relational databases and SQL.
+
+Ability to integrate applications with databases and develop data-driven solutions.
+
+Experience designing, developing, and consuming RESTful APIs.",
+cargill,321160,Software Engineering,,"Job Purpose and Impact
+The Professional, Software Engineering job maintains and partners to design and develop software applications and systems. With limited supervision, this job collaborates with cross functional teams to implement new software features to meet user needs and business goals and upgrade existing software to improve performance and functionality through writing clean, efficient and scalable code and troubleshooting and debugging moderately complex issues. This job also participates in code reviews to maintain high code quality and share knowledge with software engineering team members.
+Key Accountabilities
+SOFTWARE DEVELOPMENT: Partners to design and develop high quality software solutions by writing clean, maintainable and efficient codes.
+AUTOMATION: Applies internal software deployment platform, methodologies and tools to automate the deployment process, ensuring smooth and reliable releases.
+COLLABORATION: Partners with cross functional team of product managers, designers and other engineers to gather moderately complex requirements and deliver solutions that meet business needs.
+TESTING & DEBUGGING: Writes and maintains moderately complex unit tests and integration tests, and performs debugging to maintain the quality and performance of the software.
+CONTINUOUS IMPROVEMENT: Makes suggestions for improving the software development and deployment processes, and implements the approved standards to improve efficiency and reliability.
+DOCUMENTATION: Drafts and maintains comprehensive documentation for moderately complex software applications, deployment processes and system configurations.
+TECHNICAL SUPPORT: Provides technical support and troubleshooting for moderately complex issues with deployed applications to ensure minimal downtime and fast resolution.",
+linkedin,https://www.linkedin.com/jobs/view/4467082831/?alternateChannel=search&eBP=NOT_ELIGIBLE_FOR_CHARGING&refId=q7KOhWd%2Bps5iJVa4bMQ2Yw%3D%3D&trackingId=fbjvu7hP82%2Bj2bvjb%2F%2Fv0Q%3D%3D,Software Engineer - Fullstack,,"Basic Qualifications
+
+Bachelor's in Computer Science or related technical discipline, or related practical experience.
+
+
+2+ years of hands-on experience in developing backend services in Java and web development experience with object-oriented JavaScript, semantic HTML, CSS.
+
+
+Extensive programming experience in modern JavaScript / TypeScript / similar languages; frameworks such as EmberJS / React / similar and building APIs
+
+
+
+
+Preferred Qualifications
+
+Experience developing multi-tier scalable and user-centric reliable applications that operate 24x7
+
+
+Deep foundational knowledge of data structures and algorithms
+
+
+Knowledge of UI and API frameworks and MVP application design
+
+
+
+
+Suggested Skills
+
+Java
+
+
+Javascript
+
+
+HTML
+
+
+CSS",
+five9,https://www.five9.com/about/careers/job-detail?gh_jid=6102697004,Software Engineer II,,"Qualifications & Skills
+Strong React and TypeScript proficiency; experience with other modern frameworks (Vue, Angular, Svelte) is a good signal
+Testing experience with Jest and/or Playwright, with an understanding of the value of thorough test coverage
+Able to operate autonomously on a small, fast-paced team; fills gaps and makes reasonable calls without constant direction
+Strong written communication and collaboration skills for a remote, async-first, distributed environment
+Prior experience using AI coding tools and a genuine willingness to evolve those skills as the space changes
+Bachelor's degree (or equivalent) in a relevant discipline
+Preferred Skills
+Prior experience in CCaaS, agent desktop, or UI platform roles
+Familiarity with TanStack Query and Zustand
+Web accessibility knowledge; familiarity with WCAG standards and building accessible UIs
+Monorepo and micro-frontend architecture experience; Nx preferred, but PNPM, Lerna, and other tools are good signals
+Experience with WebSockets or real-time application development
+Other Requirements
+Working shift must be aligned to overlap with Pacific working hours
+This position requires the ability to be On Call
+",

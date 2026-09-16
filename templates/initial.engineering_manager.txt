@@ -1,0 +1,35 @@
+Hi {{first_name}},
+
+{{personal_note}}
+
+A short introduction: I am a backend engineer at HiLabs. These are
+three things I have built and owned there.
+
+The export pipeline. It was slow and memory-heavy, so I rebuilt it
+using database cursor streaming, producer-consumer concurrency and
+parallel I/O. Export time came down from 45 minutes to 2 minutes.
+
+The multi-tenancy layer. A schema-per-tenant design on Spring Boot,
+Hibernate Multi-Tenancy and PostgreSQL, where the tenant schema is
+resolved from the JWT and carried through ThreadLocal context.
+
+The audit logging framework. Built with Spring AOP and Kafka, using
+exponential backoff and a dead-letter queue, so no event is lost and
+request latency stays low.
+
+I am applying for {{role}} at {{company}}. If you feel my profile is
+suitable, I would be glad to have a short conversation at whatever
+time is convenient for you.
+
+If this opening is not with your team, I would be thankful if you
+could point me to the right team, or pass my profile on internally -
+whichever is easier for you.
+
+{{job_ref}}
+Resume: {{resume_link}}
+
+Thank you for reading.
+
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

@@ -9,28 +9,28 @@ passes it into make_note(). That is the only seam between "local" and
 "hosted" - the safety net (validate()) is identical either way.
 """
 
-import csv
 import datetime as dt
 import difflib
 import hashlib
 import json
 import re
-import shutil
 import sqlite3
 import sys
 import urllib.error
 from pathlib import Path
 
+import store
+from store import slug
+
 BASE = Path(__file__).resolve().parent
 DB_PATH = BASE / "outreach.db"
 CONFIG_PATH = BASE / "config.json"
-CONTACTS_CSV = BASE / "contacts.csv"
 FACTS_PATH = BASE / "resume_facts.json"
 JD_DIR = BASE / "jds"
 
 # Bump this whenever you change the prompt. It is part of the cache key, so a
 # prompt change invalidates old drafts instead of silently reusing them.
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 DEFAULTS = {
     "model": "",                    # each script decides how it's chosen/validated
@@ -56,8 +56,10 @@ SIGNOFFS = re.compile(r"\b(best regards|kind regards|regards|sincerely|thanks in
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS notes (
     cache_key  TEXT PRIMARY KEY,
-    email      TEXT NOT NULL,
-    company    TEXT NOT NULL DEFAULT '',
+    email      TEXT NOT NULL DEFAULT '',      -- legacy, kept for old rows
+    company    TEXT NOT NULL DEFAULT '',      -- display name, for the review UI
+    company_slug TEXT NOT NULL DEFAULT '',
+    job_id     TEXT NOT NULL DEFAULT '',
     note       TEXT NOT NULL DEFAULT '',
     status     TEXT NOT NULL DEFAULT 'draft',   -- draft|approved|needs_human|applied
     attempts   INTEGER NOT NULL DEFAULT 0,
@@ -75,7 +77,19 @@ def db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
+    migrate(conn)
     return conn
+
+
+def migrate(conn):
+    """Add columns SCHEMA cannot add to a database that already exists,
+    because it uses CREATE TABLE IF NOT EXISTS. Idempotent."""
+    have = {r["name"] for r in conn.execute("PRAGMA table_info(notes)")}
+    for col in ("company_slug", "job_id"):
+        if col not in have:
+            conn.execute(f"ALTER TABLE notes ADD COLUMN {col} "
+                         f"TEXT NOT NULL DEFAULT ''")
+    conn.commit()
 
 
 def cfg(section, extra_defaults=None):
@@ -196,16 +210,21 @@ HARD RULES:
 Reply with JSON only: {"note": "<the two sentences>"}"""
 
 
-def build_prompt(contact, jd_text, picked):
+def build_prompt(job, jd_text, picked):
+    """One note per OPENING, not per person.
+
+    There is deliberately no RECIPIENT line: every contact at a company gets
+    the same note for a given opening, so a note that named one person would
+    be wrong for the other seven.
+    """
     chosen = "\n".join(f"- {a['text']}" for a in picked)
     jd = (jd_text or "").strip()
     if len(jd) > 3000:                 # keep the context small; less room to drift
         jd = jd[:3000] + " ..."
     return (
         f"FACTS (the only things you may claim about the sender):\n{chosen}\n\n"
-        f"COMPANY: {contact.get('company','')}\n"
-        f"ROLE: {contact.get('role','') or 'Backend Software Engineer'}\n"
-        f"RECIPIENT: {contact.get('name','')}\n\n"
+        f"COMPANY: {job.get('company','')}\n"
+        f"ROLE: {job.get('role','') or 'Backend Software Engineer'}\n\n"
         f"JOB DESCRIPTION:\n{jd}\n\n"
         f"Write the two sentences now."
     )
@@ -249,7 +268,9 @@ def validate(note, d, jd_text, contact, c, previous):
 
     # -- grounding -----------------------------------------------------
     resume_v = vocab(facts_text(d))
-    them_v = vocab(" ".join([contact.get("company", ""), contact.get("name", ""),
+    # No recipient name here: the note is shared across everyone at the
+    # company, so naming a person must not be permitted.
+    them_v = vocab(" ".join([contact.get("company", ""),
                              contact.get("role", "")]))
     jd_v = vocab(jd_text)
     allowed = resume_v | them_v | jd_v | COMMON_OK
@@ -317,11 +338,6 @@ def validate(note, d, jd_text, contact, c, previous):
 
 # ------------------------------------------------------------------ jd + cache
 
-def slug(s):
-    """Fold a company name or filename to a comparable key: '1% Club' -> '1_club'."""
-    return re.sub(r"[^a-z0-9]+", "_", (s or "").lower()).strip("_")
-
-
 def find_jd(row):
     """Where the job description comes from, in priority order."""
     inline = (row.get("jd") or "").strip()
@@ -356,8 +372,11 @@ def find_jd(row):
 
 
 def cache_key(row, jd_text, d, c):
+    """Identifies an OPENING. The recipient's email is deliberately absent:
+    it used to be in here, which meant eight contacts at one company cost
+    eight model runs to produce eight copies of the same note."""
     blob = "|".join([
-        (row.get("email") or "").lower(), row.get("company", ""),
+        row.get("company_slug", "") or slug(row.get("company", "")),
         row.get("job_id", ""), jd_text, str(d.get("version", "")),
         PROMPT_VERSION, c["model"],
     ])
@@ -368,19 +387,14 @@ def known_notes(conn):
     """Everything already written, so we can refuse to repeat ourselves."""
     out = [r["note"] for r in conn.execute(
         "SELECT note FROM notes WHERE note != ''")]
-    if CONTACTS_CSV.exists():
-        with open(CONTACTS_CSV, newline="", encoding="utf-8") as f:
-            out += [(r.get("personal_note") or "").strip()
-                    for r in csv.DictReader(f)]
+    out += [j["personal_note"] for j in store.load_jobs()]
     return [n for n in out if n]
 
 
-def read_contacts():
-    if not CONTACTS_CSV.exists():
-        sys.exit(f"ERROR: {CONTACTS_CSV.name} not found.")
-    with open(CONTACTS_CSV, newline="", encoding="utf-8") as f:
-        r = csv.DictReader(f)
-        return list(r), (r.fieldnames or [])
+def read_jobs():
+    """The openings to write notes for. One note per opening, shared by every
+    contact at that company."""
+    return store.load_jobs()
 
 
 # ------------------------------------------------------------------ generation
@@ -420,7 +434,7 @@ def make_note(c, d, row, jd_text, previous, generate_fn):
 # scripts point straight at these instead of duplicating them.
 
 def cmd_review(args):
-    """The human gate. Nothing reaches contacts.csv without passing through here."""
+    """The human gate. Nothing reaches jobs.csv without passing through here."""
     conn = db()
     rows = conn.execute(
         "SELECT * FROM notes WHERE status IN ('draft','needs_human') "
@@ -431,7 +445,8 @@ def cmd_review(args):
 
     for r in rows:
         print("\n" + "=" * 68)
-        print(f"{r['email']}   ({r['company']})   facts used: {r['used_facts']}")
+        where = f"{r['company'] or r['company_slug']} {r['job_id']}".strip()
+        print(f"{where}   facts used: {r['used_facts']}")
         print("-" * 68)
         if r["status"] == "needs_human":
             print("  the model could not produce a valid note.")
@@ -476,45 +491,83 @@ def cmd_review(args):
 
 
 def cmd_apply(args):
-    """Write approved notes into contacts.csv. outreach.py takes it from there."""
+    """Write approved notes into jobs.csv. outreach.py takes it from there.
+
+    The join is on (company_slug, job_id) - the opening - not on an email
+    address. The old email-keyed join could not tell one person's two
+    applications apart, and left drafts orphaned whenever an address changed.
+    """
     conn = db()
-    approved = {r["email"]: r for r in conn.execute(
-        "SELECT * FROM notes WHERE status='approved'")}
+
+    # One opening can have SEVERAL approved notes: cache_key includes the
+    # model, so drafting with notegen.py and then notegen_hosted.py caches two
+    # rows for the same opening. Take the newest and say what was ignored,
+    # rather than letting a dict silently pick one at random.
+    approved, superseded = {}, {}
+    for r in conn.execute("SELECT * FROM notes WHERE status='approved' "
+                          "ORDER BY created_at"):
+        k = (r["company_slug"], r["job_id"])
+        if k in approved:
+            superseded[k] = superseded.get(k, 1) + 1
+        approved[k] = r
     if not approved:
         print("No approved notes. Run: python3 notegen.py review")
         return
 
-    rows, fields = read_contacts()
-    if "personal_note" not in fields:
-        sys.exit("ERROR: contacts.csv has no personal_note column.")
+    for (cs, jid), n in sorted(superseded.items()):
+        label = f"{cs}/{jid}".strip("/") or "(no opening recorded)"
+        print(f"  [note] {label}: {n} approved notes, using the newest "
+              f"(model {approved[(cs, jid)]['model']})")
 
-    backup = CONTACTS_CSV.with_suffix(".csv.bak")
-    shutil.copy2(CONTACTS_CSV, backup)
+    jobs = store.load_jobs()
 
-    written = 0
-    for row in rows:
-        addr = (row.get("email") or "").strip().lower()
-        hit = approved.get(addr)
+    pending, written = [], 0
+    for job in jobs:
+        hit = approved.get((job["company_slug"], job["job_id"]))
         if not hit:
             continue
-        if (row.get("personal_note") or "").strip() and not args.force:
-            print(f"  [keep] {addr}: already has a note (use --force to replace)")
+        where = f"{job['company_slug']}/{job['job_id']}".rstrip("/")
+        if job["personal_note"] and not args.force:
+            print(f"  [keep] {where}: already has a note (use --force to replace)")
             continue
-        row["personal_note"] = hit["note"]
-        conn.execute("UPDATE notes SET status='applied' WHERE cache_key=?",
-                     (hit["cache_key"],))
+        job["personal_note"] = hit["note"]
+        pending.append(hit["cache_key"])
         written += 1
-        print(f"  [write] {addr}")
+        print(f"  [write] {where}")
 
-    with open(CONTACTS_CSV, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=fields)
-        w.writeheader()
-        for row in rows:
-            w.writerow({k: row.get(k, "") for k in fields})
+    # An approved note whose (company_slug, job_id) matches no opening can
+    # never be applied. Say so instead of silently doing nothing - rows cached
+    # before the split have both fields blank and land here.
+    keys = {(j["company_slug"], j["job_id"]) for j in jobs}
+    orphans = [r for k, r in approved.items() if k not in keys]
+    for r in orphans:
+        k = (r["company_slug"], r["job_id"])
+        label = f"{k[0]}/{k[1]}".strip("/") or "(no opening recorded)"
+        n = superseded.get(k, 1)
+        print(f"  [orphan] {label}: {n} approved note(s), but no such opening "
+              f"in {store.JOBS_CSV.name} - cannot be applied")
+
+    if not written:
+        print("\nNothing to write.")
+        if orphans:
+            n_rows = sum(superseded.get((r["company_slug"], r["job_id"]), 1)
+                         for r in orphans)
+            print(f"{n_rows} approved note(s) match no opening. If they "
+                  f"are left over from before the split, drop them with:\n"
+                  f"  sqlite3 outreach.db \"DELETE FROM notes WHERE "
+                  f"company_slug='';\"")
+        return
+
+    # Write the file FIRST, then commit the status flips. If the write raises,
+    # nothing is marked 'applied', so the approved note is still there to
+    # retry. The reverse order would strand it: flagged applied, never written.
+    backup = store.write_jobs(jobs)
+    for key in pending:
+        conn.execute("UPDATE notes SET status='applied' WHERE cache_key=?", (key,))
     conn.commit()
 
-    print(f"\n{written} note(s) written to {CONTACTS_CSV.name} "
-          f"(backup: {backup.name})")
+    print(f"\n{written} note(s) written to {store.JOBS_CSV.name}"
+          + (f" (backup: {backup.name})" if backup else ""))
     print("Now check them for real:  python3 outreach.py send --dry-run")
 
 
@@ -525,7 +578,8 @@ def cmd_list(args):
         print("Cache is empty.")
         return
     for r in rows:
-        print(f"\n{r['status']:<12} {r['email']}  [{r['model']}]")
+        where = f"{r['company'] or r['company_slug']} {r['job_id']}".strip()
+        print(f"\n{r['status']:<12} {where or r['email']}  [{r['model']}]")
         print(f"  {r['note'] or '(none)'}")
         if r["reasons"]:
             print(f"  reasons: {r['reasons']}")

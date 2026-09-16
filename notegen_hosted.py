@@ -3,11 +3,11 @@
 instead of on your machine.
 
     resume_facts.json + a job description
-        -> pick the 1-2 most relevant achievements     (retrieval)
+        -> one note per OPENING, shared by its contacts (retrieval)
         -> hosted model writes 2 sentences              (generation)
         -> validator rejects anything ungrounded       (the real safety net)
         -> you approve or edit, one by one             (the human gate)
-        -> written into contacts.csv personal_note     (outreach.py untouched)
+        -> written into jobs.csv personal_note         (outreach.py untouched)
 
 The validator, prompt, retrieval, JD lookup, caching, and the
 review/apply/list commands are shared with notegen.py via notegen_core.py -
@@ -25,7 +25,7 @@ Requires: an OpenRouter API key. Stdlib only, no pip installs.
     python3 notegen_hosted.py doctor    # is the key set? model configured?
     python3 notegen_hosted.py draft     # generate notes for contacts missing one
     python3 notegen_hosted.py review    # approve / edit / regenerate / skip
-    python3 notegen_hosted.py apply     # write approved notes into contacts.csv
+    python3 notegen_hosted.py apply     # write approved notes into jobs.csv
     python3 notegen_hosted.py list      # show what is in the cache
 """
 
@@ -38,7 +38,7 @@ import urllib.request
 
 import notegen_core as core
 from notegen_core import (
-    cmd_apply, cmd_list, cmd_review, facts, find_jd, make_note, read_contacts,
+    cmd_apply, cmd_list, cmd_review, facts, find_jd, make_note, read_jobs,
 )
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
@@ -115,16 +115,18 @@ def cmd_doctor(args):
     else:
         print("  [FAIL] missing.")
 
-    rows, _ = read_contacts()
-    need = [r for r in rows if not (r.get("personal_note") or "").strip()]
-    print(f"\nContacts    : {len(rows)} row(s), {len(need)} without a note")
-    for r in need:
-        jd, src = find_jd(r)
+    jobs = read_jobs()
+    need = [j for j in jobs if not j["personal_note"]]
+    print(f"\nOpenings    : {len(jobs)} row(s), {len(need)} without a note")
+    for j in need:
+        jd, src = find_jd(j)
         mark = "ok " if jd else "NO JD"
-        print(f"  [{mark}] {r.get('email','')}  <- {src or 'nothing found'}")
-    if need and not any(find_jd(r)[0] for r in need):
-        print(f"\n  Put job descriptions in {core.JD_DIR.name}/ as <email-local-part>.txt")
-        print(f"  or add a 'jd_file' / 'jd' column to contacts.csv.")
+        where = f"{j['company_slug']}/{j['job_id']}".rstrip("/")
+        print(f"  [{mark}] {where}  <- {src or 'nothing found'}")
+    if need and not any(find_jd(j)[0] for j in need):
+        print(f"\n  Paste the job description into the 'jd' column of "
+              f"{core.store.JOBS_CSV.name},")
+        print(f"  or drop a file in {core.JD_DIR.name}/ and name it in 'jd_file'.")
     print()
 
 
@@ -138,39 +140,37 @@ def cmd_draft(args):
                   '{"model": "<an OpenRouter model id>"} to config.json')
     d = facts()
     conn = core.db()
-    rows, _ = read_contacts()
+    jobs = read_jobs()
     previous = core.known_notes(conn)
     made = failed = skipped = 0
 
-    for row in rows:
-        addr = (row.get("email") or "").strip().lower()
-        if not addr:
-            continue
-        if (row.get("personal_note") or "").strip() and not args.force:
+    for job in jobs:
+        where = f"{job['company_slug']}/{job['job_id']}".rstrip("/")
+        if job["personal_note"] and not args.force:
             continue
 
-        jd_text, src = find_jd(row)
+        jd_text, src = find_jd(job)
         if not jd_text:
-            print(f"  [skip] {addr}: no job description found ({src or 'nothing'})")
+            print(f"  [skip] {where}: no job description found ({src or 'nothing'})")
             skipped += 1
             continue
 
-        key = core.cache_key(row, jd_text, d, c)
+        key = core.cache_key(job, jd_text, d, c)
         hit = conn.execute("SELECT * FROM notes WHERE cache_key=?", (key,)).fetchone()
         if hit and hit["status"] in ("draft", "approved", "applied") and not args.force:
-            print(f"  [cached] {addr}: {hit['status']}")
+            print(f"  [cached] {where}: {hit['status']}")
             continue
 
-        print(f"  [gen] {addr}  (jd: {src})")
-        note, reasons, used = make_note(c, d, row, jd_text, previous, generate)
+        print(f"  [gen] {where}  (jd: {src})")
+        note, reasons, used = make_note(c, d, job, jd_text, previous, generate)
         status = "draft" if note else "needs_human"
         conn.execute(
             """INSERT OR REPLACE INTO notes
-               (cache_key,email,company,note,status,attempts,reasons,model,
-                used_facts,created_at)
-               VALUES (?,?,?,?,?,?,?,?,?,?)""",
-            (key, addr, row.get("company", ""), note, status, c["max_attempts"],
-             "; ".join(reasons), f"openrouter:{c['model']}", used,
+               (cache_key,email,company,company_slug,job_id,note,status,attempts,
+                reasons,model,used_facts,created_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (key, "", job["company"], job["company_slug"], job["job_id"], note,
+             status, c["max_attempts"], "; ".join(reasons), f"openrouter:{c['model']}", used,
              dt.datetime.now().isoformat(timespec="seconds")))
         conn.commit()
         if note:
@@ -200,7 +200,7 @@ def main():
 
     sub.add_parser("review", help="approve / edit each draft").set_defaults(func=cmd_review)
 
-    a = sub.add_parser("apply", help="write approved notes into contacts.csv")
+    a = sub.add_parser("apply", help="write approved notes into jobs.csv")
     a.add_argument("--force", action="store_true", help="overwrite existing notes")
     a.set_defaults(func=cmd_apply)
 

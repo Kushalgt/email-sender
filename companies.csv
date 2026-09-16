@@ -1,0 +1,34 @@
+slug,name,domain,email_pattern
+geidea,Geidea,geidea.net,{first}|{first}.{last}
+appinventiv,Appinventiv,appinventiv.com,{first}.{last}
+ascendion,Ascendion,ascendion.com,{first}.{last}
+bt_group,BT Group,bt.com,{first}.{last}
+gokwik,GoKwik,gokwik.co,{first}.{last}
+uipath,Uipath,uipath.com,{first}.{last}
+ukg,UKG,ukg.com,{first}.{last}
+sixt,SIXT,sixt.com,{first}.{last}
+astra,Astra Security,getastra.com,{first}.{last}
+niit,NIIT,niit.com,{first}.{last}
+apple,Apple,apple.com,{first}_{last}|{f}{last}
+1_club,1% Club,onepercentclub.io,{first}
+spectrocloud,Spectro Cloud,spectrocloud.com,{first}
+citi,Citi,citi.com,{first}.{last}
+databricks,Databricks,databricks.com,{first}.{last}
+dexcom,Dexcom,dexcom.com,{first}.{last}
+gitlab,Gitlab,gitlab.com,{f}{last}
+mastercard,Mastercard,,
+optum,Optum,,
+paypay,Paypay,paypay-corp.co.jp,{first}.{last}
+siemens,Siemens,,
+syfe,Syfe,,
+goldman_sachs,Goldman Sachs,,
+jp_morgan_chase,JPMorganChase,,
+master_card,MasterCard,,
+amadeus,amadeus,,
+cbts,cbts,,
+ncr_voyix,NCR Voyix Corporation,,
+mobility_global,Mobility Global,,
+cargill,Cargill,,
+linkedin,,,
+five9,five9,five9.com,{first}.{last}
+principal,Principal,,

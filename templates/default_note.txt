@@ -1,0 +1,4 @@
+I am writing about the {{role}} opening at {{company}}, which is a
+close match to the backend work I do now. We have not met, so I will
+keep this short: the specific things I have built are below, and my
+resume is linked at the end.

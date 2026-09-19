@@ -4,8 +4,11 @@ Job-outreach mailer: sends one-to-one emails, tracks state, follows up,
 and stops following up when someone replies.
 
 Design rule: this tool removes mechanical work. It does NOT write your
-personalisation for you. Every contact must have a hand-written
-personal_note or the script refuses to send.
+personalisation for you. Every contact must have a personal_note or the
+script refuses to send - either hand-written in jobs.csv, or, if that
+cell is empty, the fallback in templates/default_note.txt (see
+load_default_note()). Deleting that file turns the fallback off and
+restores the original all-hand-written rule.
 
 Commands:
     python3 outreach.py send          # the real thing (used by the scheduler)
@@ -52,6 +55,13 @@ PLACEHOLDER = re.compile(r"\{\{(\w+)\}\}")
 EMAIL_OK = re.compile(r"^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$")
 # job_id holds either a req ID or a pasted job link - see job_refs().
 JOB_URL = re.compile(r"^https?://", re.I)
+
+DEFAULT_NOTE_PATH = TEMPLATES / "default_note.txt"
+DEFAULT_ROLE = "Backend Software Engineer"
+# The default note may only reference an opening's own fields - never a
+# person's, since one note is shared by every contact at that company
+# (same rule notegen_core.build_prompt() follows for AI-drafted notes).
+DEFAULT_NOTE_FIELDS = {"company", "role"}
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS contacts (
@@ -153,9 +163,49 @@ def render(template, fields):
     return out
 
 
+def load_default_note():
+    """The fallback personal_note text, or None if the feature is off.
+
+    Returning None (file absent) is the only way to get today's original
+    behaviour back: an opening with no note in jobs.csv is skipped, exactly
+    as it was before this fallback existed.
+
+    A file that exists but is unusable is a hard stop, not a silent skip -
+    the same way check_templates() already treats a broken templates/
+    folder, because a typo here would otherwise fail once per contact
+    instead of once at startup.
+    """
+    if not DEFAULT_NOTE_PATH.is_file():
+        return None
+
+    text = " ".join(DEFAULT_NOTE_PATH.read_text(encoding="utf-8").split())
+    if not text:
+        sys.exit(f"ERROR: {DEFAULT_NOTE_PATH.relative_to(BASE)} is empty.\n"
+                  f"  Write the fallback note, or delete the file to turn "
+                  f"the fallback off.")
+
+    used = set(PLACEHOLDER.findall(text))
+    extra = used - DEFAULT_NOTE_FIELDS
+    if extra:
+        sys.exit(f"ERROR: {DEFAULT_NOTE_PATH.relative_to(BASE)} uses "
+                  f"{{{{{sorted(extra)[0]}}}}}, which is not allowed.\n"
+                  f"  This note is shared by every contact at the company, "
+                  f"so it may only use: "
+                  f"{', '.join('{{' + f + '}}' for f in sorted(DEFAULT_NOTE_FIELDS))}")
+    return text
+
+
+def render_default_note(default_note, job_title, company):
+    """Fill the default note in for one opening. company is the display name."""
+    return render(default_note, {
+        "company": company,
+        "role": job_title or DEFAULT_ROLE,
+    })
+
+
 # ---------------------------------------------------------------- contacts
 
-def import_contacts(conn):
+def import_contacts(conn, default_note=None):
     """Upsert the joined rows from the CSV store (companies + jobs + people).
 
     Existing rows are never overwritten, so re-running is safe and you can
@@ -164,14 +214,26 @@ def import_contacts(conn):
     company DISPLAY name, never the slug: the primary key here is
     (email, company, job_id), so a changed company string would re-insert an
     already-mailed contact at stage 0 and mail them twice.
+
+    default_note (from load_default_note()) is the fallback used when
+    jobs.csv's own personal_note cell is empty. It only ever affects a
+    contact who has NOT been mailed yet (stage 0): once stage > 0 the note
+    that was actually sent must never change underneath the record. A
+    stage-0 row whose stored note no longer matches what today's import
+    would produce - because you wrote a real note, or edited
+    default_note.txt - is refreshed, so a real note always overtakes a
+    fallback one before anything goes out.
     """
-    added = skipped = 0
+    added = refreshed = skipped = defaulted = 0
     for row in store.load_contacts():
         addr = row["email"].strip().lower()
         note = row["personal_note"].strip()
         company = row["company"].strip()
         name = row["name"].strip()
         job_id = row["job_id"].strip()
+        job_title = row["job_title"].strip()
+        where = f"{company} {job_id}".strip()
+        used_default = False
 
         if not addr:
             continue
@@ -179,8 +241,10 @@ def import_contacts(conn):
             print(f"  [skip] bad email syntax: {addr}")
             skipped += 1
             continue
+        if not note and default_note:
+            note = render_default_note(default_note, job_title, company)
+            used_default = True
         if not note:
-            where = f"{company} {job_id}".strip()
             print(f"  [skip] {addr} ({where}): personal_note is empty "
                   f"- write one line first")
             skipped += 1
@@ -197,11 +261,25 @@ def import_contacts(conn):
             (addr, company, job_id, name, row["role"].strip(), note,
              row["contact_type"].strip()),
         )
-        added += cur.rowcount
+        if cur.rowcount:
+            added += 1
+            if used_default:
+                defaulted += 1
+                print(f"  [default-note] {addr} ({where})")
+        else:
+            cur = conn.execute(
+                """UPDATE contacts SET personal_note=? WHERE email=? AND
+                   company=? AND job_id=? AND stage=0 AND personal_note != ?""",
+                (note, addr, company, job_id, note),
+            )
+            if cur.rowcount:
+                refreshed += 1
+                print(f"  [refresh-note] {addr} ({where})")
 
     conn.commit()
     load_suppression(conn)
-    print(f"  imported {added} new, skipped {skipped}")
+    print(f"  imported {added} new ({defaulted} with the default note), "
+          f"refreshed {refreshed}, skipped {skipped}")
 
 
 def load_suppression(conn):
@@ -404,7 +482,7 @@ def build_message(row, step, cfg, from_addr):
         "name": row["name"],
         "first_name": row["name"].split()[0],
         "company": row["company"],
-        "role": row["role"] or "Backend Software Engineer",
+        "role": row["role"] or DEFAULT_ROLE,
         "job_id": row["job_id"] or "",
         "job_ref": job_ref,
         "subject_ref": subject_ref,
@@ -474,6 +552,7 @@ def check_templates():
 def cmd_send(args):
     cfg = load_config()
     check_templates()
+    default_note = load_default_note()
     conn = db()
 
     reason = preflight(cfg, args.ignore_window)
@@ -482,7 +561,7 @@ def cmd_send(args):
         return
 
     print("Importing contacts...")
-    import_contacts(conn)
+    import_contacts(conn, default_note)
 
     if not args.dry_run:
         print("Checking inbox for replies and bounces...")

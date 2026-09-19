@@ -82,6 +82,19 @@ def generate(c, system, user, temperature, seed):
     )
     with urllib.request.urlopen(req, timeout=c["timeout_seconds"]) as r:
         resp = json.loads(r.read().decode())
+
+    # Diagnostic only: set NOTEGEN_DEBUG=1 to see exactly what the model sent
+    # back, before parse_note() and validate() touch it. Reasoning models put
+    # their answer in places other than message.content, so print the whole
+    # response rather than guessing which field matters.
+    if os.environ.get("NOTEGEN_DEBUG"):
+        print("\n" + "-" * 68, file=sys.stderr)
+        print(f"RAW RESPONSE  (temperature={temperature}, seed={seed})",
+              file=sys.stderr)
+        print("-" * 68, file=sys.stderr)
+        print(json.dumps(resp, indent=2, ensure_ascii=False), file=sys.stderr)
+        print("-" * 68 + "\n", file=sys.stderr)
+
     choices = resp.get("choices") or [{}]
     return (choices[0].get("message") or {}).get("content", "")
 

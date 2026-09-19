@@ -27,12 +27,25 @@ python3 notegen_hosted.py apply     # writes into the same jobs.csv
 `outreach.py` says in its own docstring:
 
 > It does NOT write your personalisation for you. Every contact must have a
-> hand-written personal_note or the script refuses to send.
+> personal_note or the script refuses to send - either hand-written in
+> jobs.csv, or, if that cell is empty, the fallback in
+> templates/default_note.txt.
 
-This feature contradicts that rule, so **`outreach.py` is not modified at all.**
-`notegen.py` writes approved notes into `jobs.csv`, and the existing
-"refuse to send an empty note" guard stays exactly as it was. The note is
-AI-drafted but human-approved before it ever reaches the CSV.
+This feature contradicts the "write it for me" half of that rule, so
+**`outreach.py`'s note-writing logic is not touched by notegen.**
+`notegen.py` writes approved notes into `jobs.csv`, the same as if you had
+typed them in yourself. The note is AI-drafted but human-approved before it
+ever reaches the CSV.
+
+The generic `templates/default_note.txt` fallback is a separate, much
+simpler feature: it is one fixed sentence with no grounding check, used
+only to keep an opening from being skipped entirely while it has no note at
+all — yours or notegen's. `notegen draft` still treats an opening as
+"without a note" even while the default is being used for it. Once
+`notegen apply` writes an approved note into `jobs.csv`, `outreach.py`
+picks it up on its next `send` for any contact not yet emailed, and it
+overtakes the default there. See the README's "Default personal note"
+section for how it works.
 
 ## Files
 

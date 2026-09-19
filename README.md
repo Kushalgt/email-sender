@@ -9,12 +9,17 @@ Python 3.9+. Standard library only — nothing to `pip install`.
 
 ## What it will not do
 
-It will not send an email where `personal_note` is blank, and it will not
-send an email that still contains an unfilled `{{placeholder}}` or `[Name]`.
-Both are hard aborts, logged and skipped.
+It will not send an email that still contains an unfilled `{{placeholder}}`
+or `[Name]`. That is a hard abort, logged and skipped.
 
-That is deliberate. The personalisation line is the only part of the email
-that actually earns a reply, so the tool refuses to run without it.
+Every contact must have a `personal_note`. If `jobs.csv` leaves that cell
+blank, `templates/default_note.txt` is used instead — see
+[Default personal note](#default-personal-note-fallback) below. Only when
+*both* are empty is the contact skipped.
+
+That is deliberate. The personalisation line is the part of the email most
+likely to earn a reply, so a hand-written one always wins, and the fallback
+exists so a missing note holds up sending less often.
 
 ---
 
@@ -81,7 +86,8 @@ Workflow, in the order that costs you least typing:
    A new company also needs one row in `companies.csv`.
 2. **Write the note once per opening** — by hand, or with `notegen.py`.
    It is shared by everyone you contact at that company, so you write it
-   once instead of once per person.
+   once instead of once per person. Leaving it blank is fine too — see
+   below.
 3. **New people** → one short row each in `people.csv`: name,
    `company_slug`, and `contact_type`. Leave `email` blank and let
    `python3 emailmap.py predict --apply` fill it in from the company's
@@ -89,6 +95,29 @@ Workflow, in the order that costs you least typing:
 
 The scheduler picks them up next morning. Re-importing is safe — existing
 rows are never overwritten or re-sent.
+
+### Default personal note (fallback)
+
+`jobs.csv`'s `personal_note` cell can be left blank. When it is,
+`templates/default_note.txt` is rendered and used instead, so the opening
+is not stuck unable to send just because you have not written its note yet.
+
+- The file may only use `{{company}}` and `{{role}}` — nothing
+  person-specific, since one note is shared by every contact at that
+  company, same as a hand-written one.
+- **Delete the file to turn this off.** With no `templates/default_note.txt`,
+  an opening with a blank `personal_note` is skipped, exactly as before this
+  feature existed.
+- A hand-written note in `jobs.csv` always wins over the default. If you add
+  one later, any contact **not yet emailed** for that opening picks it up on
+  the next `send` — someone already emailed keeps the note they actually
+  received.
+- Every send that used the fallback is logged as `[default-note]`, and a
+  refreshed one as `[refresh-note]`, so `python3 outreach.py send --dry-run`
+  shows you exactly which emails used it before anything goes out.
+- `notegen.py`/`notegen_hosted.py` still treat that opening as "without a
+  note" and can draft a real one for it — the default only fills the gap
+  until you do.
 
 Every person at a company is contacted about every opening at that company;
 that join is computed at load time, so there is nothing to maintain. A person
@@ -245,7 +274,8 @@ Set the credentials as *user* environment variables, not session ones.
 | Dedupe | — | SQLite PK on (email, company, job_id) |
 | One message per person per day | — | always on |
 | Unfilled-placeholder abort | — | always on |
-| Empty personal_note refusal | — | always on |
+| Empty personal_note refusal (no default note file) | — | always on |
+| Default personal note | `templates/default_note.txt` | on if the file exists |
 
 Gmail's own reported ceiling is ~500 recipients/day on a personal account,
 so the cap of 25 is not about quota — it's about not looking like a bot and

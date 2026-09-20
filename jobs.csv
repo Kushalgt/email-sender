@@ -135,7 +135,7 @@ Hands-on experience using enterprise-authorized AI-assisted software development
 Understanding of responsible AI use in engineering workflows, including data sensitivity considerations, secure handling of inputs/outputs, and adherence to resiliency and security expectations.
 Experience across the whole Software Development Life Cycle
 Exposure to agile methodologies such as CI/CD, Application Resiliency, and Security",
-master_card,411006,Software Engineer - Java Spring Boot,"MasterCard is looking for a Software Engineer to build Java and Spring Boot microservices and event-driven integrations. I designed and implemented a scalable asynchronous audit logging framework using Spring AOP and Kafka, ensuring reliable event delivery.","Roles and Responsibilities
+mastercard,411006,Software Engineer - Java Spring Boot,"MasterCard is looking for a Software Engineer to build Java and Spring Boot microservices and event-driven integrations. I designed and implemented a scalable asynchronous audit logging framework using Spring AOP and Kafka, ensuring reliable event delivery.","Roles and Responsibilities
 • Design, develop, test, deploy, and support software services based on technical and functional requirements.
 • Build Java and Spring Boot microservices, REST APIs, and Kafka-based event-driven integrations.
 • Apply object-oriented design, SOLID principles, reusable patterns, and secure coding practices.
@@ -223,6 +223,36 @@ Continuous learning and professional growth.
 Offers of employment are conditional upon passage of screening criteria applicable to the job
 
 ",
+optum,2382772,Software Engineer - Backend Developer,,"Primary Responsibilities:
+
+Design, develop, debug, test, deploy, and maintain assigned software capabilities, features, APIs, services, scripts, or application components
+Write clean, secure, reusable, and maintainable code that aligns with team standards, engineering practices, and quality expectations
+Apply an automation-first mindset by improving repeatable development, testing, deployment, monitoring, and support tasks
+Participate in Agile delivery activities including backlog refinement, estimation, sprint planning, demos, reviews, and retrospectives
+Collaborate with product owners, business partners, quality engineers, architects, and peer engineers to translate requirements into working solutions
+Develop an understanding of application architecture, cost/complexity tradeoffs, and dependencies across upstream and downstream systems
+Instrument delivered features using standard logging, monitoring, alerting, and diagnostic practices so issues can be detected and resolved early
+Support production readiness by contributing to CI/CD pipelines, automated tests, deployment validation, incident analysis, and post-release improvements
+Troubleshoot defects, performance bottlenecks, data issues, and operational problems; recommend corrective actions with guidance from senior engineers
+Continuously learn modern engineering practices, cloud, DevOps, security, AI-enabled development methods, and emerging tools relevant to the team's technology stack
+Comply with the terms and conditions of the employment contract, company policies and procedures, and any and all directives (such as, but not limited to, transfer and/or re-assignment to different work locations, change in teams and/or work shifts, policies in regards to flexibility of work benefits and/or work environment, alternative work arrangements, and other decisions that may arise due to the changing business environment). The Company may adopt, vary or rescind these policies and directives in its absolute discretion and without any limitation (implied or otherwise) on its ability to do so
+Required Qualifications:
+
+Bachelor's degree in Computer Science, Software Engineering, Information Technology, Engineering, or equivalent practical experience
+Typically 2+ years of relevant professional software engineering experience, or equivalent demonstrated capability
+Hands-on experience with at least one modern programming language such as Java, Python, C#, JavaScript/TypeScript, or similar
+Experience developing or supporting web applications, APIs, backend services, batch jobs, cloud-native services, or enterprise application components
+Working knowledge of software development fundamentals including data structures, algorithms, object-oriented design, debugging, unit testing, and version control
+Awareness of CI/CD practices, automated testing, code quality tools, observability, secure coding, and production support expectations
+Ability to analyze problems, learn unfamiliar systems, communicate clearly, and deliver assigned work with quality and accountability
+Preferred Qualifications:
+
+Experience with cloud platforms such as Azure, AWS, or GCP
+Experience with monitoring or diagnostics tools such as Splunk, Grafana, Prometheus, Dynatrace, or similar
+Exposure to microservices, REST APIs, event-driven architecture, containers, Kubernetes/OpenShift, or platform engineering concepts
+Working knowledge of relational or NoSQL databases and basic data modeling principles
+Exposure to healthcare, claims, compliance, security, or regulated enterprise environments
+Proven interest in using AI-assisted engineering tools responsibly to improve design, coding, testing, documentation, and delivery productivity",
 niit,3203,SOFTWARE ENGINEER-II,,"Job overview
 The Software Engineer II is responsible for designing, developing, and enhancing software applications that support digital learning products and content delivery. The role works closely with cross-functional teams to deliver scalable, secure, and high-quality technology solutions while contributing to technical improvements and innovation. 
 

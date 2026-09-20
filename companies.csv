@@ -17,10 +17,10 @@ databricks,Databricks,databricks.com,{first}.{last}
 dexcom,Dexcom,dexcom.com,{first}.{last}
 gitlab,Gitlab,gitlab.com,{f}{last}
 mastercard,Mastercard,,
-optum,Optum,,
+optum,Optum,optum.com,{first}_{last}
 paypay,Paypay,paypay-corp.co.jp,{first}.{last}
-siemens,Siemens,,
-syfe,Syfe,,
+siemens,Siemens,siemens.com,{first}.{last}
+syfe,Syfe,syfe.com,{first}.{last}
 goldman_sachs,Goldman Sachs,,
 jp_morgan_chase,JPMorganChase,,
 master_card,MasterCard,,
@@ -29,7 +29,7 @@ cbts,cbts,,
 ncr_voyix,NCR Voyix Corporation,,
 mobility_global,Mobility Global,,
 cargill,Cargill,,
-linkedin,,,
+linkedin,linkedin,linkedin.com,{f}{last}
 five9,five9,five9.com,{first}.{last}
 principal,Principal Financial Group,principal.com,{last}.{first}
-mongo,MongoDB,,
+mongo,MongoDB,mongodb.com,{first}.{last}

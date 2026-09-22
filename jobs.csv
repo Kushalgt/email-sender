@@ -14,10 +14,8 @@ syfe,,Backend Engineer (SDE II) - India,"Syfe is fundamentally changing how peop
 gitlab,8775507002,Intermediate Backend Engineer,,,jds/gitlab.txt
 uipath,https://jobs.ashbyhq.com/uipath/a6ed0fbe-3505-46ab-9ec5-469d8356f8d8,Software Engineer 1,"The role involves building robust, scalable, and high-performance systems for the Data Fabric platform team. I developed an AI-powered rule management platform that enabled business rules to be created and executed from natural language, which aligns with the focus on AI-driven solutions.",,jds/uipath.txt
 paypay,4024283006,Backend Engineer,,,
-databricks,,Full Stack Developer (AI Agents),,,
 gokwik,,Software Development Engineer - II,"The role requires experience designing and scaling event-driven architectures using Kafka or similar messaging systems. I designed and implemented a scalable asynchronous audit logging framework at HiLabs using Kafka, ensuring reliable event delivery while maintaining low request latency.",,jds/GoKwik.txt
 ukg,SOFTW019676,Software Development Engineer,UKG is focused on developing and maintaining automated tests and engineering utilities. I built an AI-powered rule management platform that involved creating reliable and maintainable code for automation solutions.,,jds/UKG.txt
-mastercard,411006,Software Engineer - Java Spring Boot,,,
 sixt,https://jobs.smartrecruiters.com/SIXT/744000148143553-software-development-engineer-ii-java-backend-?trid=2d92f286-613b-4daf-9dfa-6340ffbecf73,Software Development Engineer II (Java Backend),,"YOUR ROLE AT SIXT
 
 You will design and build robust backend services in Java that power personalized, data-driven customer communication workflows
@@ -400,3 +398,218 @@ Experience writing and testing software whether as part of an internship, in a p
 Good verbal and written technical communication skills, desire to collaborate with colleagues
 Eager to learn, with a strong technical background
 ",
+databricks,https://www.databricks.com/company/careers/integration-data-engineering-and-applications/full-stack-developer-ai-agents-8632126002?gh_jid=8632126002%29,Full Stack Developer (AI Agents),,"About the Role
+We are looking for a Full Stack Developer to design, build, and deploy modern, scalable AI agents and applications that leverage Large Language Models (LLMs). This role requires a strong focus on end-to-end agent development, including building a high-performance React frontend, designing the agentic logic in Python, integrating with backend services, and ensuring production readiness.
+
+Key Responsibilities
+Design, develop, and deploy AI agents for business-critical workflows, with a focus on LLM orchestration and tools.
+Implement complex agentic behaviours using frameworks like LangChain or LangGraph, including ReAct loops for reasoning and action.
+Design and develop a high-performance React application for the agent's user interface.
+Collaborate with backend teams to integrate APIs and services, and build tools for agents.
+Work with middleware (Python/Node.js) to orchestrate agent calls and data flow.
+Implement comprehensive observability and tracing for agent runs and system performance.
+Build reusable, scalable UI components.
+Optimise application performance, responsiveness, and scalability.
+Participate in architectural discussions and contribute to solution design.
+Write clean, maintainable, and testable code with proper documentation.
+Required Skills and Experience
+3+ years of experience in full-stack development, with strong expertise in Python and React.js.
+Proven experience in designing, building, and deploying at least 1 production-deployed AI agent or LLM application.
+Deep expertise in LLM orchestration, prompt engineering, and utilising tools/plugins to extend agent capabilities.
+Experience with agent frameworks like LangChain or LangGraph, including implementing reasoning patterns like the ReAct loop.
+Experience with observability, logging, and tracing for AI agents.
+Experience building large-scale, enterprise-grade applications.
+Strong experience with API integration (REST/GraphQL).
+Experience working in Agile/Scrum environments.
+Preferred / Good to Have
+Experience with Node.js or Python for middleware development
+Understanding of Salesforce APIs (REST, Apex, RLM/CPQ)
+Experience with event-driven architectures (webhooks, CDC, async processing)
+Knowledge of CI/CD pipelines and DevOps practices
+Experience with Databricks Platform and Mosaic AI
+
+What We’re Looking For
+Strong problem-solving and system design skills
+Ability to work across frontend and backend integration layers
+Ownership mindset with attention to detail
+Good communication and collaboration skills
+About Databricks",
+alteryx,R12485,Software Engineer,,"What You’ll Bring
+2+ years of software design and development experience, preferably working with open-source technologies and open standards.
+Experience with API and/or SDK development is preferred.
+Strong programming knowledge in Java.
+Strong debugging and troubleshooting skills.
+Basic understanding of RESTful APIs, cloud-based data handling, and real-time data communication.
+Strong problem-solving skills with the ability to work independently and collaboratively.
+A growth mindset and enthusiasm for learning new technologies and taking on challenging problems.
+A customer-centric approach and willingness to take ownership of complex technical challenges.
+Strong focus on code quality, engineering standards, and maintainability.
+Ability and willingness to mentor junior engineers.
+
+Good to Have
+Knowledge of Python.
+Basic understanding of Generative AI concepts.
+Experience optimizing protocols and building efficient RPC systems.
+Experience with networking and concurrency.
+Knowledge of distributed computing, big data, and stream processing systems.
+Experience working with cloud data platforms or cloud-based connectivity technologies.
+",
+hartford,R2627134-333,Staff Associate /Engineer - Java Back end,,"IND Staff Engineer - GCC097
+We’re determined to make a difference and are proud to be an insurance company that goes well beyond coverages and policies. Working here means having every opportunity to achieve your goals – and to help others accomplish theirs, too. Join our team as we help shape the future.
+
+Java back end
+",
+webengage,https://webklipper.keka.com/careers/applyjob/80114,Software Engineer- JAVA,,"Role Overview
+
+At WebEngage, we are scaling fast and looking for passionate Java developers to contribute to the continued innovation of our platform. You will work within functional pods, collaborating with product managers, architects, and customer-facing teams to deliver scalable, efficient solutions. As part of a lean, agile team, youʼll take ownership of critical systems that process billions of events daily, impacting users across the globe.
+
+What Sets Us Apart
+
+Impact at Scale: At WebEngage, youʼll manage systems that process billions of events daily, sending billions of communications, pushing the limits of scale and performance.
+
+Full Ownership: As a lean startup, you'll have end-to-end ownership of your components. Itʼs a unique opportunity to design, build, and optimize systems from scratch.
+
+High Responsibility: Our small, agile team means youʼll take on varied responsibilities, and your work will have a direct, tangible impact on the product.
+
+Continuous Learning: Managing large-scale systems with a small team fosters rapid learning across domains. Youʼll be exposed to all aspects of engineering from infrastructure to customer interaction.
+
+Responsibilities
+
+Contribute to the execution of a product roadmap that drives innovation and scale across the assigned functional pods. Collaborate with product managers to deeply understand business problems and user needs.
+Work closely with architects to translate high-level design specifications into efficient, scalable code.
+Participate in peer code reviews and engage in pair programming when needed to build quality and maintainable solutions.
+Dive into existing codebases — you may need to optimize, refactor, or rewrite vulnerable areas while strengthening them with robust test cases.
+Monitor and optimize performance metrics and costs for your components, ensuring high availability and efficiency.
+Build expertise in critical areas while constantly learning through code reviews and peer feedback.
+Develop curiosity and foster it among your peers by asking insightful questions.
+Liaise with customer-facing teams to troubleshoot and resolve technical issues, directly impacting customer success.
+Participate in on-call support and incident management, helping the team maintain high uptime and reliability.
+
+Requirements
+
+Strong Core Java skills with a solid understanding of OOP principles.
+Expertise in data structures and algorithms, enabling you to write efficient and optimized code.
+Expertise in multithreading and concurrent programming, ensuring you can develop highly performant, scalable systems. Hands-on experience with web frameworks, REST APIs, and relational databases (SQL/NoSQL).
+Experience in troubleshooting, profiling code, and optimizing performance at scale.
+Working knowledge of cloud infrastructure (AWS, Azure, GCP) and message queues (Kafka,RabbitMQ).
+Proficiency in version control systems and secure coding practices.
+Excellent communication skills to articulate ideas clearly and collaborate effectively with cross-functional teams.
+Familiarity with incident management and the ability to handle on-call support in a fast-paced environment.
+
+Years of Experience: 1 - 3 years",
+termgrid,https://www.linkedin.com/jobs/search-results/?currentJobId=4469849138&eBP=NOT_ELIGIBLE_FOR_CHARGING&refId=7QK8n3T7FRB9MLzZ5oIX%2FQ%3D%3D&trackingId=bcUaq8MAbBniQMv2RM3LLQ%3D%3D&keywords=full-time%20Software%20Engineer%20or%20Java%20Software%20Engineer%2C%20on-site%20or%20hybrid%20or%20remote&origin=PREFERENCES_LANDING&geoId=102713980,Backend Developer - Remote ,,,
+autodesk,26WD100667,Software Engineer (Java & AWS),,,
+five9,https://www.five9.com/about/careers/job-detail?gh_jid=5840323004,"Software Engineer II – C++, SIP",,"Responsibilities:
+
+Participate in an Agile Scrum team that practices DevOps.
+Write clean, well-documented code and corresponding tests.
+Deliver your code as part of an overall solution running in the public cloud.
+Develop and enhance our Media Server to support real-time integrations with Large Language Models (LLMs) and other AI services.
+Required Skills:
+
+3+ years of professional experience in software development, including experience in C and/or C++.
+Hands-on experience developing software for real-time communications signaling and media protocols (e.g., SIP, RTP).
+Ability to methodically troubleshoot complex systems.
+Excellent communication and organizational skills, with a strong sense of ownership.
+Technical Skills:
+
+Modern C++ (C++17+)
+RTP/SIP, audio codecs, SIP/SDP
+ASR/TTS integration
+AI APIs
+Cloud platforms (AWS, Azure, GCP)
+CI/CD
+Containers
+Site Reliability Engineering (SRE) principles
+AI/ML and Large Language Models (LLMs)",
+ghx,https://job-boards.greenhouse.io/globalhealthcareexchangeinc/jobs/4733072005,Software Engineer II,,"Role Overview
+Looking for a Software Engineer II with strong Java/Spring Boot development experience.
+
+Work on backend and frontend platforms supporting high-volume healthcare transactions.
+
+Full-stack experience is a plus, with Angular preferred.
+
+Key Responsibilities
+Develop and maintain applications using Java, Spring Boot, and REST APIs.
+
+Work with MySQL, MongoDB, and Redis.
+
+Develop integrations with internal services.
+
+Write unit and integration tests.
+
+Participate in Agile/Scrum ceremonies and production issue resolution.
+
+Collaborate with engineers, architects, and Product teams.
+
+Follow clean coding practices and established design patterns.
+
+Use AI-assisted development tools such as GitHub Copilot, Cursor, or Claude Code.",
+point72,https://job-boards.greenhouse.io/point72/jobs/8576953002,"Software Engineer, Treasury Technology",,"WHAT YOU’LL DO
+• Build software used to support global trading across time zones
+• Work closely with business users to establish and refine requirements
+• Participate in identifying new technologies to continuously improve software systems
+• Implement DevOps practices within the team (GitHub/GitLab, Jenkins)
+• Provide production support to diagnose and resolve elevated application software production incidents and implement proactive remediation measures
+
+WHAT’S REQUIRED
+• Bachelor’s degree in computer science or another technical/scientific field
+• Minimum 8 years object-oriented programming experience with C#/.NET
+• Significant experience working with / understanding databases - primarily MS SQL Server
+• Must have experience in writing automated tests, unit tests, Test-Driven Development
+• Knowledge of design/architecture patterns, distributed systems, microservices, observability and monitoring, and containerization (Docker)
+• Willingness to work as part of a distributed Dev Team - 3 time zones (USA, Poland, India)
+• Strong problem solving and analytical skills
+• Exceptional verbal and written communication skills
+• Commitment to the highest ethical standards
+
+WE TAKE CARE OF OUR PEOPLE
+We invest in our people, their careers, their health, and their well-being. When you work here, we provide:
+• Health care benefits
+• Maternity, Adoption & related leave policies
+• Generous paternity and family care leave policies
+• Employee Assistance Program & Mental wellness programs
+• Transportation support
+• Tuition assistance",
+wisdomAi,https://jobs.ashbyhq.com/Wisdom-AI/c785bc4d-ed02-4b59-88f1-44db0e151f46,"Software Engineer, Platforms",,"What you'll do
+
+Wisdom is at an inflection point, with strong product market fit and the traction of Fortune 100 customers. We are looking for an early-stage engineer to build out the deployment, observability, and scaling of our growing production environments. You will work closely with experienced members of the team and customers to build systems to surpass the bottleneck of onboarding customers of any shape and size.
+
+Job responsibilities
+
+Owning the observability and deployments of Wisdom stack.
+
+Working with other software engineers and sales engineers to build the right processes and tooling for production change management.
+
+Work with modern cloud infrastructure to build cost efficient and scalable systems.
+
+Work closely with customers and founders to define the product and engineering roadmap.
+
+Shape up the engineering culture and tech stack for the company.
+
+Qualifications
+
+Experience building highly available and scalable cloud infrastructure.
+
+Experience with Kubernetes/Terraform/Python.
+
+Bachelor's or Master's degree in Computer Science or related field.
+
+Experience working in startup/fast paced teams is highly desirable.",
+peak,https://jobs.lever.co/peakgames/cfaf2251-1472-4e73-b0a3-e3e88df7aa91,"Software Engineer, Backend",,"Here's what you'll do
+Design and implement scalable, low-latency backend services that deliver core game features to millions of users
+Manage API’s and tools required to support new game and platform functionality and releases
+Maintain and enhance existing code base using best practices in Software Engineering
+Brainstorm new ideas with your team to continually iterate and improve the user experience of our games
+Monitor the system and implement and check features, through collaboration with game players
+Secure and improve game performance, reliability and security
+What we're looking for
+University degree in Computer Science or any equivalent department
+Good command of various programming languages (such as Java, JavaScript, or C#) and experience with best practices and idioms of these languages
+Experience in Java Spring Boot based software development and backend systems
+Having experience in casual mobile games is a big advantage
+Knowledge of relational and non-relational databases
+Familiarity with Memcache, Redis, Elasticsearch and Docker is a plus
+Strong engineering skills and programming fundamentals
+Apart from language and technology, an understanding of software architecture design, OOP and principles of design patterns on various scales
+Meticulous attention to detail and a passion for developing, releasing, and maintaining high-quality code",

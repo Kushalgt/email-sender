@@ -3,7 +3,7 @@
   "from_email": "kushalguptadps@gmail.com",
   "phone": "+91-7087384521",
   "linkedin": "https://www.linkedin.com/in/kushalguptadps/",
-  "resume_link": "https://drive.google.com/file/d/1A4rGP2OjOb5LUCKLdMJ4n-gFY3eLB5M7/view?usp=sharing",
+  "resume_link": "https://drive.google.com/file/d/18gkGADewTLvRJoYeJYP4fxhhp4vB9n6X/view?usp=sharing",
   "smtp_host": "smtp.gmail.com",
   "smtp_port": 587,
   "imap_host": "imap.gmail.com",
@@ -15,7 +15,7 @@
     "hiring_manager": "Application for {{role}} - {{from_name}}",
     "recruiter": "{{company}} {{subject_ref}} - {{role}}"
   },
-  "daily_cap": 25,
+  "daily_cap": 999999,
   "min_gap_seconds": 45,
   "max_gap_seconds": 180,
   "send_window": [

@@ -497,7 +497,7 @@ Excellent communication skills to articulate ideas clearly and collaborate effec
 Familiarity with incident management and the ability to handle on-call support in a fast-paced environment.
 
 Years of Experience: 1 - 3 years",
-termgrid,https://www.linkedin.com/jobs/search-results/?currentJobId=4469849138&eBP=NOT_ELIGIBLE_FOR_CHARGING&refId=7QK8n3T7FRB9MLzZ5oIX%2FQ%3D%3D&trackingId=bcUaq8MAbBniQMv2RM3LLQ%3D%3D&keywords=full-time%20Software%20Engineer%20or%20Java%20Software%20Engineer%2C%20on-site%20or%20hybrid%20or%20remote&origin=PREFERENCES_LANDING&geoId=102713980,Backend Developer - Remote ,,,
+termgrid,https://www.linkedin.com/jobs/search-results/?currentJobId=4469849138&eBP=NOT_ELIGIBLE_FOR_CHARGING&refId=7QK8n3T7FRB9MLzZ5oIX%2FQ%3D%3D&trackingId=bcUaq8MAbBniQMv2RM3LLQ%3D%3D&keywords=full-time%20Software%20Engineer%20or%20Java%20Software%20Engineer%2C%20on-site%20or%20hybrid%20or%20remote&origin=PREFERENCES_LANDING&geoId=102713980,Backend Developer - Remote,,,
 autodesk,26WD100667,Software Engineer (Java & AWS),,,
 five9,https://www.five9.com/about/careers/job-detail?gh_jid=5840323004,"Software Engineer II – C++, SIP",,"Responsibilities:
 
@@ -661,3 +661,55 @@ Demonstrated ability to lead projects, collaborate effectively with teams, and m
 Excellent problem-solving and analytical skills, with the ability to tackle complex technical challenges
 Prior experience in FinTech, payments, banking, e-commerce, or other high-volume transactional systems would be an added advantage
 If you are a passionate and driven Software Engineer with a proven track record in backend development, eager to work with the latest technologies and contribute to the development of cutting-edge applications, we encourage you to apply. Join our dynamic team and be part of shaping the future of our innovative projects.",
+sabre,JR108649,Software Engineer II,,"
+2. What THIS ROLE Will Do
+
+Detail three to five key areas of ownership. Focus on high-level deliverables, business outcomes, and strategic impact rather than routine administrative tasks.
+ 
+
+Developing high-quality code with consistent technical artifacts.
+
+Ensuring software meets all quality, security, extensibility, and data privacy requirements.
+
+Diagnosing system failures and production issues, working with technical staff to identify and address root causes.
+
+Ensuring non-functional mandates, compliance, and security requirements are met.
+
+Implementing new components and subsystems as per the design documents provided by architects.
+
+Adhering to the guidelines shared by the lead and architects.
+
+
+
+3. What THIS ROLE Requires
+
+List three to five essential qualifications required to succeed in this role. Focus on technical skills, years of relevant experience, and critical capabilities.
+ 
+
+MS/MTech, BE/BTech in computer science or related fields.
+
+Excellent programming skills with 2+ years of professional experience in Java development.
+
+Exposure to software engineering best practices, Agile SDLC, build and deployment tools, and CI/CD practices.
+
+Exceptional hands-on skills in Java, J2EE, Spring, Spring Boot, RDBMS, NoSQL.
+
+Proficiency with SOAP, REST, RESTful, JSON-RPC, JMS, SOA/EDA 
+
+Microservices Architecture, client-server and distributed systems, and Enterprise Integration methodology and standards.",
+cornerstone,req11534,Associate Software Engineer ,,"0–2 years of relevant software development experience, including internships or project experience.",
+wfyi,https://www.linkedin.com/jobs/view/4469688054/,Software Engineer,,"About the job
+SOFTWARE ENGINEER - FRONTENDFylFlix by WFYI Technology | https://fylflix.wfyi.ai
+Location: Ghitorni, New Delhi (Delhi-Gurugram border) - OnsiteExperience: 2+ years (full-time, non-internship)Employment: Full-time
+Note: Immediate joiners are preferred, but this is not mandatory. Finding the right talent and fit is more important to us.
+ABOUT THE ROLE
+Build the interfaces businesses use to understand their finances and make decisions. As a Software Engineer focused on frontend at WFYI Technology, you will own analytics dashboards, dense financial tables, and workflows that turn complex data into clear actions.
+We want someone who can reason about architecture and performance, make thoughtful design decisions, and ship dependable software. You will work across React, Next.js, and TypeScript, from the first interaction design through deployment and production improvements.
+RESPONSIBILITIES
+• Build interactive dashboards, charts, and financial tables with filtering, sorting, drill-downs, and exports. Keep the experience responsive as datasets grow.
+• Make dense financial information understandable with thoughtful layout, useful defaults, and responsive interactions across desktop, tablet, and mobile screens.
+• Design frontend architecture, reusable components, and predictable state management. Work with backend engineers on API contracts and server-side data operations.
+• Measure and improve page loading, rendering, and interaction latency. Use profiling, virtualization, and bundle optimization; reduce redundant API calls through appropriate caching, debouncing, batching, and cancellation.
+• Build conversational interfaces and agent-assisted workflows with clear progress, loading, error, and recovery states.",
+ge,R5048951,Software Engineer ,,,
+,,,,,

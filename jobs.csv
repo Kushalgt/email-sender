@@ -712,4 +712,92 @@ RESPONSIBILITIES
 • Measure and improve page loading, rendering, and interaction latency. Use profiling, virtualization, and bundle optimization; reduce redundant API calls through appropriate caching, debouncing, batching, and cancellation.
 • Build conversational interfaces and agent-assisted workflows with clear progress, loading, error, and recovery states.",
 ge,R5048951,Software Engineer ,,,
+securonix,6025,SW Dev,,"Responsibilities:
+
+
+
+• Design, develop, test, and maintain high-quality Java applications.
+
+• Develop clean, efficient, and maintainable code following coding standards and best practices.
+
+• Collaborate with product owners, architects, QA engineers, and cross-functional teams to understand requirements and implement solutions.
+
+• Develop and enhance RESTful APIs and microservices.
+
+• Write unit and integration tests to ensure application quality and reliability.
+
+• Debug, troubleshoot, and resolve application issues in development and production environments.
+
+• Participate in code reviews and incorporate feedback to improve code quality.
+
+• Contribute to CI/CD pipelines and DevOps practices for efficient software delivery.
+
+• Create and maintain technical documentation for implemented features.
+
+• Stay up to date with modern Java technologies, AI-assisted development tools, and industry best practices.
+
+
+
+Required Skills:
+
+
+
+• 2–4 years of hands-on experience in Java development, Spring Boot, Spring MVC, RESTful APIs, and microservices architecture.
+
+• Strong understanding of Core Java, including Object-Oriented Programming (OOP), Collections, Exception Handling, Multithreading, and Java design principles.
+
+• Experience with relational databases (MySQL, MariaDB, or PostgreSQL), including SQL development and database fundamentals.
+
+• Hands-on experience with build and development tools, including Maven or Gradle, Git (GitHub/GitLab/Bitbucket), and a basic understanding of CI/CD pipelines.
+
+• Experience with testing frameworks such as JUnit, Mockito, or TestNG, with a good understanding of unit and integration testing practices.
+
+• Basic knowledge of containerization and cloud technologies, including Docker, Kubernetes, and exposure to AWS, Azure, or Google Cloud Platform.
+
+• Experience using AI-assisted development tools such as GitHub Copilot, ChatGPT, Cursor, or Claude to improve developer productivity.
+
+• Basic understanding of Generative AI and Large Language Models (LLMs), including prompt engineering and AI-assisted software development workflows.
+
+• Familiarity with integrating AI/LLM services using REST APIs (e.g., OpenAI, Azure OpenAI, Google Gemini) is preferred.
+
+• Strong understanding of web technologies and API communication, including JSON, HTTP, and API integration patterns.
+
+• Strong analytical, debugging, and problem-solving skills, with the ability to write clean, maintainable, and efficient code.
+
+• Good verbal and written communication skills, experience working in Agile/Scrum environments, and a willingness to learn new technologies and adapt to evolving business needs.
+
+ ",
+redwood,https://job-boards.greenhouse.io/redwoodsoftware/jobs/4243666009?gh_src=fc7o2jq29us,Associate Software Engineer,,"We are looking for a Software Engineer, Platform & Integrations. Working closely with senior and lead engineers, you will design, develop, and maintain high-quality features that power enterprise data exchange for more than 1,000 customers worldwide.
+
+This is an incredible opportunity to deepen your expertise in cloud-native architectures, enterprise security, and modern DevOps practices in a fast-growing product environment.
+
+Feature Development & Design: Write clean, maintainable, and well-tested code using Java and Spring Boot to deliver scalable backend services and microservices.
+
+Platform Reliability: Contribute to enhancing the monitoring, logging, and observability of our core platform to ensure high availability and performance.
+
+Security & Compliance: Implement secure coding practices to safeguard data exchange and maintain compliance across our cloud infrastructure.
+
+Collaborative Execution: Work within an agile team, collaborating closely with QA, Product, and fellow engineers to deliver high-quality software sprints on time.
+
+Innovation & Curiosity: Stay curious about emerging technologies—including cloud native optimizations and AI/ML concepts—and help explore ways to apply them to our product.
+
+YOUR EXPERIENCE
+
+Education: Bachelor’s degree in Computer Science, Engineering, or a related field.
+
+Product Experience: 2+ years of professional software engineering experience, ideally within a product-driven company.
+
+Core Tech Stack: Strong foundation in Java, Spring Boot, and REST API development, with a solid understanding of object-oriented programming (OOP) and design patterns.
+
+Database Systems: Proficiency in SQL and relational database management, such as PostgreSQL or MySQL
+
+Cloud & DevOps Familiarity: Practical exposure to cloud platforms (AWS preferred) and standard CI/CD deployment pipelines. Experience with Docker or Kubernetes/EKS is a strong plus.
+
+Engineering Best Practices: Proven track record of writing automated tests (unit, integration) and participating in constructive code reviews.
+
+Protocols & Integrations: Familiarity with standard networking or file transfer protocols (e.g., SFTP, HTTP, AS2) is highly desirable.
+
+Soft Skills: Strong problem-solving abilities, excellent communication skills, and a desire to learn from senior engineering peers.
+
+Agile Mindset: Experience working within Agile/Scrum development methodologies.",
 ,,,,,

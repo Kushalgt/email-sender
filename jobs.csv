@@ -800,4 +800,96 @@ Protocols & Integrations: Familiarity with standard networking or file transfer 
 Soft Skills: Strong problem-solving abilities, excellent communication skills, and a desire to learn from senior engineering peers.
 
 Agile Mindset: Experience working within Agile/Scrum development methodologies.",
-,,,,,
+proofpoint,R14190,Backend Golang Developer,,"How We Work:
+
+At Proofpoint you’ll be part of a global team that breaks barriers to redefine cybersecurity guided by our BRAVE core values: 
+
+Bold in how we dream and innovate
+
+Responsive to feedback, challenges and opportunities
+
+Accountable for results and best in class outcomes
+
+Visionary in future focused problem-solving
+
+Exceptional in execution and impact
+
+Corporate Overview
+Proofpoint is a leading cybersecurity company protecting organizations’ greatest assets and biggest risks: vulnerabilities in people. With an integrated suite of cloud-based solutions, Proofpoint helps companies around the world stop targeted threats, safeguard their data, and make their users more resilient against cyber-attacks. Leading organizations of all sizes, including more than half of the Fortune 1000, rely on Proofpoint for people-centric security and compliance solutions mitigating their most critical risks across email, the cloud, social media, and the web.
+We are singularly devoted to helping our customers protect their greatest assets and biggest security risk: their people. That’s why we’re a leader in next-generation cybersecurity.
+Protection Starts with People.  Proofpoint.
+
+Job Description 
+
+About the role We are looking for a Backend Engineer to join our team and work on scalable, production-grade systems built with Go. You will contribute to the development of microservices that power core product features, while gaining hands-on experience with modern backend architectures. This role is ideal for someone who enjoys building efficient systems, solving performance challenges, and working closely in real-world production environments. 
+
+Key Responsibilities 
+
+Design and implement features end to end 
+
+Develop and maintain microservices using Golang 
+
+Contribute to API design and service-to-service communication 
+
+Debug and resolve issues across distributed systems 
+
+Write clean, maintainable, and well-tested code 
+
+Collaborate with engineers across product and infrastructure teams 
+
+Required Qualifications 
+
+A degree in Computer Science or related field Experience with Go or strong willingness to learn it quickly 
+
+Understanding of backend fundamentals (APIs, databases, concurrency, networking) 
+
+Contribute to system design discussions and technical decisions 
+
+Familiarity with microservices architecture or distributed systems concepts 
+
+Strong problem-solving skills and attention to detail 
+
+Proactive mindset and eagerness to learn in a fast-paced environment 
+
+Preferred Skills 
+
+Experience with REST APIs, or messaging systems 
+
+Familiarity with Goroutine and asynchronous development techniques 
+
+Familiarity with Docker or containerization 
+
+Exposure to cloud platforms (AWS, GCP, or Azure)",
+arctic,R26_805,Developer 3,,"Key Responsibilities
+ Design, develop, and maintain scalable backend services using Python and Golang
+ Write clean, efficient, and testable code with proper documentation and unit testing
+ Contribute to CI/CD pipelines and deployment automation using modern DevOps
+practices
+ Work with containerization tools (Docker, Kubernetes) to build, deploy, and manage microservices
+ Collaborate with team members, QA, and product managers to deliver high-quality features
+ Monitor and optimize PostgreSQL database queries and schema design
+ Participate in code reviews, design discussions, and sprint planning
+ Apply test-driven development (TDD) principles in day-to-day work
+ Demonstrate a strong ability to write original code to solve complex problems without reliance on AI-generated solutions
+ Contribute in an agile and fast-paced development environment with a strong sense of ownership
+ Embrace cloud-native development practices with security fundamentals in mind
+
+Required Qualifications
+ 1–3 years of hands-on experience in backend development using Python and Go
+ Solid understanding of RESTful APIs, microservices, and service-oriented architecture
+ Familiarity with CI/CD pipelines and tools like Jenkins and GitHub Actions
+ Experience working with Docker and Kubernetes for containerization and orchestration
+ Basic understanding of cloud-native application development and deployment
+ Experience working with cloud platforms such as AWS, Azure, or GCP
+ Strong problem-solving skills and eagerness to learn and grow in a dynamic environment
+ Team player with a high sense of ownership and urgency
+ Outcome-oriented mindset with strong collaboration skills
+ Understanding of software security fundamentals
+
+Nice to Have
+ Exposure to monitoring and logging tools (e.g., Prometheus, Grafana stack)
+ Experience with security or endpoint data pipelines is a plus
+ Understanding of message queues (e.g., Kafka, SQS)
+ Experience with React
+© Arctic Wolf Networks, Inc. All rights reserved. | Classification: Confidential
+ Hands-on experience with unit testing frameworks and build automation tools such as Maven/Gradle",

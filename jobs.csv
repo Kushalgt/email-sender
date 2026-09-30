@@ -893,3 +893,29 @@ Nice to Have
  Experience with React
 © Arctic Wolf Networks, Inc. All rights reserved. | Classification: Confidential
  Hands-on experience with unit testing frameworks and build automation tools such as Maven/Gradle",
+target,R0000453965,Engineer - Target India,,"Must-Have (Core Skills)
+
+Strong programming skills in one language (Python, Java, Kotlin, or JavaScript/TypeScript)
+Solid understanding of:
+APIs and microservices
+Data structures and problem-solving
+Basic system design and distributed systems concepts
+Experience with modern development practices (CI/CD, version control, testing)
+Ability to independently own and deliver features end-to-end
+Willingness to learn, adapt, and grow in a fast-paced environment
+
+
+Good-to-Have (Differentiators)
+
+Experience with distributed data systems (Kafka, Spark, etc.)
+Hands-on with Docker, Kubernetes, or infrastructure-as-code tools
+Experience with SQL or NoSQL databases
+Exposure to frontend technologies (React, TypeScript, etc.)
+Experience working on production systems at scale
+AI / ML Exposure (a strong plus):
+
+Working with LLM APIs, prompt engineering
+Understanding of RAG, embeddings, or vector databases
+Familiarity with ML tools (MLflow, Airflow, etc.)
+Exposure to agent-based frameworks (LangChain, AutoGen, etc.)
+",

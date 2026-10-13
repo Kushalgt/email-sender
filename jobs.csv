@@ -269,6 +269,26 @@ Optimize application performance, security, and scalability.
 Maintain technical documentation and support deployment activities.
 Stay updated on emerging technologies and drive continuous improvement initiatives.
 ",
+visa,REF087690W,Software Engineer,,"Job Description
+
+Role Summary:
+
+Risk and Identity Solutions team within VAS (Value added Services) organization is looking for curious, creative, and talented technologists to join our team. This Software Engineer role is for a self-motivated individual with excellent software engineering skills. Your primary focus will be on building and maintaining various critical solutions that integrates with internal/external systems, or works standalone. You will be working closely with business on various requirements and ensure a strong partnership with all stakeholders. This role is for an individual whose experience with software development forms a strong basis for designing scalable and resilient integration that ensures highest quality and availability.
+
+Essential Functions:
+
+As a SW Engineer, you will build and support lasting, scalable, and secure solutions which deliver a delightful user experience, are resilient, and promote learning.
+Continue to learn about the industry, propose new learning and payments solutions to meet future needs.
+Adhere to SDLC governance framework.
+Install, review, analyze and evaluate existing solutions, recommend technologies for incubation and future solutions, and help implement recommendations for longevity, stability, performance, and availability.
+Engage with product managers,  and users to ensure that the right learning platforms and content providers are available and accessible to Visa employees and clients around the world.
+Provide technical leadership and partner with technology groups such as Engineering, Network, Security, and Infrastructure on project delivery activities.
+Produce development artifacts and participate in code-reviews.
+Monitor, troubleshoot, and enhance existing integrations to ensure they are functioning optimally.
+Ensure highest level of Engineering and Operational Excellence following Visa’s core principles.
+Participate in vendor assessments and selection.
+Work with limited direction, usually within a complex and fast paced environment to drive delivery of solutions and meet service levels.
+Visa requires at least 3 days in office, expectations of these days will be confirmed by your Hiring Manager.",
 mobility_global,326433,Associate Software Engineer (React+Java),,"Technical Skills and Technologies:
 
 Core Development
@@ -983,3 +1003,55 @@ Redis, and ElasticSearch.
 Excellent written and verbal communication skills for technical documentation
 and explaining complex ideas.
 Industry Experience - 2 to 4 years.",
+nexla,https://job-boards.greenhouse.io/nexla/jobs/4738485005?gh_src=n1bw4e2v5us&t=3253f722teu,Software Engineer (JVM),,"st-Haves
+
+2 to 5 years of professional software engineering, with Java as your primary language.
+Solid JVM fundamentals: collections, concurrency basics, how memory behaves, and enough to read a stack trace or a thread dump when something is wrong.
+You write tests as part of building, not after someone asks for them.
+Comfortable with SQL, and with at least one of the protocols the platform speaks: gRPC, REST, webhooks, or CDC.
+You use AI tools in your actual work and can say specifically where they help and where they mislead you.
+Bonus points
+
+Exposure to Kafka, Spark, Flink, or a similar distributed system in production, even if you were not the one running it.
+Kubernetes, or any experience debugging something that was not running on your laptop.
+Open-source contributions, side projects, or anything you have built that you can walk us through.
+Data integration, ETL, or any work that involved cleaning up someone else’s messy data.
+You'll thrive here if
+
+You finish things. Started and done are different, and you know which one you are at.
+You ask early when you are stuck, and you have usually tried two things first.
+You read code you did not write without complaining about it.
+You want to get a lot better quickly, and you would rather have hard feedback than polite feedback.
+One thing to be clear about: our product definition is still moving as AI reshapes data integration, and the platform has to move with it. If you want a stable, well-defined surface to work on, this is not it.",
+lowe, JR-02611378,Software Engineer,,"Job Summary
+
+The primary purpose of this role is to translate business requirements and functional specifications into logical program designs and to deliver code modules, stable application systems, and software solutions. This includes developing, configuring, or modifying integrated business and/or enterprise application solutions within various computing environments. This role will be working closely with stakeholders and cross-functional departments to communicate project statuses and proposals.
+
+
+Roles & Responsibilities
+
+Translates business requirements and specifications into logical program designs, code modules, stable application systems, and software solutions with occasional guidance from senior colleagues; partners with the product team to understand business needs and functional specifications.
+Develops, configures, or modifies integrated business and/or enterprise application solutions within various computing environments by designing and coding component-based applications using various programming languages.
+Tests application using test-driven development and behavior-driven development frameworks to ensure the integrity of the application.
+Conducts root cause analysis of issues and participates in the code review process to identify gaps.
+Implements continuous integration/continuous delivery processes to ensure quality and efficiency in the development cycle using DevOps automation processes and tools.
+Ideates, builds, and publishes reusable libraries to improve productivity across teams.
+Conducts the implementation and maintenance of complex business and enterprise software solutions to ensure successful deployment of released applications.
+Solves difficult technical problems to ensure solutions are testable, maintainable, and efficient.
+
+Years of Experience
+
+2+ years of experience writing technical documentation in a software environment and developing and implementing business systems within an organization
+
+
+Education Qualification & Certifications
+
+Bachelor’s degree in computer science, computer information systems, or related field or equivalent years of experience in lieu of education requirement, if applicable
+
+2+ years of experience in software development or a related field
+
+2+ years of experience working on project(s) involving the implementation of solutions applying development life cycles (SDLC) through iterative agile development
+
+2+ years experience working with any of the following: frontend technologies (user interface/user experience), middleware (microservices and application programming interfaces), database technologies, or DevOps
+
+",

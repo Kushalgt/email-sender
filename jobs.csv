@@ -959,3 +959,27 @@ Computer Science Fundamentals: Solid understanding of core Data Structures (Arra
 Databases: Basic familiarity with SQL databases (PostgreSQL, MySQL) or NoSQL databases.
 Tools: Experience with version control systems, primarily Git
 ",
+arm,2026-19179,Associate Engineer,,"Essential Skills and Experience:
+Bachelor’s degree or master’s degree or equivalent experience in Computer Science, Information Science, Electronics and Communication Engineering, or a related technical field.
+Good programming skills in Java, Python, or both, including object-oriented programming and data structures.
+Strong problem-solving and debugging skills, with attention to software quality and accuracy.
+Good written and verbal communication skills and the ability to work collaboratively.
+Familiarity with software development fundamentals, including version control and automated testing.",
+motorola,R68249,"Software Engineer(Go and Java, Datastructure, Algorithm)",,"Basic Requirements
+Required Skills &amp; Experience:
+
+Deep hands-on experience in Golang (preferred) and proficiency in Java or C,
+C++.
+Strong computer science fundamentals, data structures, and algorithms.
+
+Deep understanding of distributed systems, multi-threading, concurrency control, and Finite State Machines (FSM).
+Hands-on expertise with networking and messaging protocols including gRPC,
+Protobuf v3, and RabbitMQ.
+Strong background with distributed databases like Apache Ignite and GridGain,
+and consensus tools like Consul Raft and LockAuthority.
+Practical knowledge of persistence and caching solutions such as PostgreSQL,
+Redis, and ElasticSearch.
+
+Excellent written and verbal communication skills for technical documentation
+and explaining complex ideas.
+Industry Experience - 2 to 4 years.",

@@ -66,3 +66,7 @@ lowe,Lowe's,,
 visa,Visa,visa.com,{first}{l}
 urban,Urban Company,urbancompany.com,{first}{last}
 google,Google,,
+greenland,Greenland Investment management,greenlandim.com,{first}
+natwest,NatWest,natwest.com,{first}.{last}
+microsoft,Microsoft,,
+rubrik,Rubrik,rubrik.com,{first}.{last}

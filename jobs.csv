@@ -263,7 +263,7 @@ Collaborate with engineers, architects, and Product teams.
 Follow clean coding practices and established design patterns.
 
 Use AI-assisted development tools such as GitHub Copilot, Cursor, or Claude Code.",
-gitlab,8775507002,Intermediate Backend Engineer,,,jds/gitlab.txt
+gitlab,https://job-boards.greenhouse.io/gitlab/jobs/8775507002?lever-origin=applied&lever-source=LINKEDIN,Intermediate Backend Engineer,,,jds/gitlab.txt
 gokwik,,Software Development Engineer - II,"The role requires experience designing and scaling event-driven architectures using Kafka or similar messaging systems. I designed and implemented a scalable asynchronous audit logging framework at HiLabs using Kafka, ensuring reliable event delivery while maintaining low request latency.",,jds/GoKwik.txt
 goldman_sachs,179366,The Core Engineering - KYC Model Eng - Associate,"Goldman Sachs is looking for candidates with demonstrated experience in leveraging AI-assisted developer tools to enhance engineering productivity. I built an AI-powered rule management platform at HiLabs that allowed business rules to be created and executed from natural language, showcasing my ability to integrate AI into software development.","QUALIFICATIONS
 
@@ -1082,3 +1082,33 @@ Strong collaboration and communication skills.  Ability to work independently or
 teamviewer,https://careers.teamviewer.com/jobs/8497054-software-engineer?utm_source=LinkedIn,Software Engineer,,,
 medianet,https://www.linkedin.com/jobs/view/4480398232/?alternateChannel=search&eBP=BUDGET_EXHAUSTED_JOB&refId=mm8mK5TxhDG0EnsWesMYwQ%3D%3D&trackingId=1UrWVV8pVq%2BdKB7VXg6oIw%3D%3D,Software Development Engineer ,,,
 blitz,https://blitznow.keka.com/careers/jobdetails/166956?source=linkedin,Software Development Engineer - II,,,
+cisco,https://careers.cisco.com/global/en/apply?jobSeqNo=CISCISGLOBAL2026139EXTERNALENGLOBAL&utm_source=linkedin&utm_medium=phenom-feeds&step=1&stepname=personalInformation,Software Engineer,,,
+pinelabs,https://www.linkedin.com/jobs/view/4478269846/?alternateChannel=search&eBP=NON_CHARGEABLE_CHANNEL&refId=4qNlO%2BA%2FfBi8xbkiXeUl2Q%3D%3D&trackingId=R4pgPaNPZlYcBKFF83G9Fg%3D%3D,SDE I - Forward Deployed Engineer ,,,
+rippling,https://ats.rippling.com/rippling/jobs/28e76743-13cf-4e30-94f2-bbaa021a2d9b?jobSite=LinkedIn,Software Engineer I -Data Infrastructure,,"What You Will Do
+
+
+
+We are looking for enthusiastic, innovative engineers to join our engineering team as Software Engineers (SDE-1). In this role, you’ll collaborate with experienced engineers, contribute to real-world projects from day one, and gain exposure to cutting-edge tools and technologies. You’ll play a key role in building and optimizing products that reach millions of users globally. you will join one of our many teams to develop robust, well-designed products, implement new updates and features, and solve complex problems that affect our business and our clients.
+
+Invent, design, and build self-serve, automated platforms for managing the lifecycle of 500+ production-grade data resources across 10+ data store types.
+Drive innovation by engineering foundational tooling for all engineering teams, such as the Database Proxy and the database replication services.
+Pioneer and execute complex projects like large-scale, zero-downtime database migrations.
+Go deep into technical architecture, distributed systems, protocol-level debugging, and performance optimization to ensure systems are reliable, scalable, and efficient at petabyte scale.
+Build and maintain the core foundations for strategic initiatives, including multi-region architecture, sandbox environments, and a comprehensive, Terraform-based infrastructure-as-code platform.
+Focus intensely on performance, observability, cost and operability to maintain infrastructure that just works, even when handling ~100 billion queries/day and 10 PB of data transfer.
+Write core libraries like middlewares, ORMs, proxies, rate limiters, shard routers (in Python and Go) to support scalability and developer experience.
+Take end-to-end ownership of projects, from initial design and planning to successful rollout and operation.
+
+
+What You Will Have
+
+
+
+1-2 years experience working with fast growing, top tier product companies
+Strong coding in one or more programming languages such as Java, Python, C++, or Go.
+Expert understanding of data structures, algorithms, software design principles and low level design
+Ability to communicate clearly and work effectively in a collaborative environment
+Understanding of system design and complex distributed systems
+Eagerness to learn new technologies and apply them to solve real-world problems.
+Bonus points for open source contributions, competitive coding experience, and a strong Computer Science background from a Tier 1 institution.
+",

@@ -15,7 +15,9 @@ or `[Name]`. That is a hard abort, logged and skipped.
 Every contact must have a `personal_note`. If `jobs.csv` leaves that cell
 blank, `templates/default_note.txt` is used instead — see
 [Default personal note](#default-personal-note-fallback) below. Only when
-*both* are empty is the contact skipped.
+*both* are empty is the contact skipped. (A
+[general inquiry](#general-inquiry-company-with-no-opening) needs no note,
+because there is no opening to write about.)
 
 That is deliberate. The personalisation line is the part of the email most
 likely to earn a reply, so a hand-written one always wins, and the fallback
@@ -123,6 +125,39 @@ Every person at a company is contacted about every opening at that company;
 that join is computed at load time, so there is nothing to maintain. A person
 receives at most one message per day, so someone who is a contact for two
 openings hears about the second one on the following run.
+
+### General inquiry (company with no opening)
+
+A person whose company has **no row in `jobs.csv`** is not skipped. They get
+a general "is there a backend SDE opening?" email instead. So you only need
+a row in `companies.csv` and rows in `people.csv` — nothing in `jobs.csv`.
+
+- **Text.** `templates/general.txt` (first email) and
+  `templates/general_followup_1.txt` (first follow-up). The second follow-up
+  is the shared `templates/followup_2.txt`, since it never names an opening.
+  Same follow-up timing as job emails. A variant such as
+  `templates/general.engineer.txt` is picked up automatically, the same way
+  as the `initial.<type>.txt` files.
+- **Subject.** `general_subject_template` in `config.json`, one for every
+  `contact_type`.
+- **No `personal_note`** is needed, and the email has no `Req ID` line.
+- **The company gets an opening later.** Add its row to `jobs.csv` as
+  usual. On the next `send`, each person's job email is queued and any
+  general inquiry that is still active is stopped (status `superseded`,
+  logged as `[superseded]`), so nobody gets two threads at once. A general
+  inquiry that was replied to, bounced or finished is left as it is.
+- **The opening is removed later.** Someone already contacted about an
+  opening at that company — sent or still queued — never gets a general
+  inquiry there, so deleting a closed opening from `jobs.csv` does not send
+  "is there an opening?" to people you already wrote to.
+- **Check before it goes out.** New ones are printed as `[general]` during
+  import, and `send --dry-run` tags each general email with `[general]`.
+  `stats` shows their reply rate separately.
+
+In `outreach.db` a general inquiry is a normal contact row with the reserved
+`job_id` `general`. It is not blank, because a blank `job_id` already means a
+real opening that came without a req ID. For the same reason `jobs.csv` may
+not use `general` as a `job_id`.
 
 ### The three files
 
@@ -276,6 +311,7 @@ Set the credentials as *user* environment variables, not session ones.
 | Unfilled-placeholder abort | — | always on |
 | Empty personal_note refusal (no default note file) | — | always on |
 | Default personal note | `templates/default_note.txt` | on if the file exists |
+| No general inquiry to someone already contacted about an opening there | — | always on |
 
 Gmail's own reported ceiling is ~500 recipients/day on a personal account,
 so the cap of 25 is not about quota — it's about not looking like a bot and

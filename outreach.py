@@ -10,6 +10,11 @@ cell is empty, the fallback in templates/default_note.txt (see
 load_default_note()). Deleting that file turns the fallback off and
 restores the original all-hand-written rule.
 
+The one exception is a general inquiry: a person whose company has no
+opening in jobs.csv gets "is there an opening?" from templates/general.txt,
+which needs no personal_note because there is no opening to write about
+(see import_general_inquiries()).
+
 Commands:
     python3 outreach.py send          # the real thing (used by the scheduler)
     python3 outreach.py send --dry-run
@@ -277,9 +282,86 @@ def import_contacts(conn, default_note=None):
                 print(f"  [refresh-note] {addr} ({where})")
 
     conn.commit()
-    load_suppression(conn)
     print(f"  imported {added} new ({defaulted} with the default note), "
           f"refreshed {refreshed}, skipped {skipped}")
+    import_general_inquiries(conn)
+    load_suppression(conn)
+
+
+def is_general(row):
+    """True for a general inquiry row (company with no opening)."""
+    return row["job_id"] == store.GENERAL_JOB_ID
+
+
+def import_general_inquiries(conn):
+    """Add a general inquiry for each person whose company has no opening,
+    and stop the ones whose company has an opening now.
+
+    Runs after the job rows are imported, because both rules below look at
+    them:
+
+      - A person who already has a job email at that company - sent or
+        still queued - never gets a general inquiry there. Without this,
+        deleting a closed opening from jobs.csv would leave the company
+        with no opening and send "is there an opening?" to everyone already
+        mailed about it.
+      - An active general inquiry is set to 'superseded' once the same
+        person has a job row at that company, so they never get two threads
+        at once. Their job email takes over. A replied, bounced or finished
+        inquiry is left as it is.
+    """
+    G = store.GENERAL_JOB_ID
+    added = held = skipped = 0
+    for row in store.load_general_contacts():
+        addr = row["email"].strip().lower()
+        company = row["company"].strip()
+        name = row["name"].strip()
+
+        if not addr:
+            continue
+        if not EMAIL_OK.match(addr):
+            print(f"  [skip] bad email syntax: {addr}")
+            skipped += 1
+            continue
+        if not company or not name:
+            print(f"  [skip] {addr}: name and company are both required")
+            skipped += 1
+            continue
+        if conn.execute(
+            "SELECT 1 FROM contacts WHERE email=? AND company=? AND job_id!=?",
+            (addr, company, G),
+        ).fetchone():
+            held += 1
+            continue
+
+        cur = conn.execute(
+            """INSERT OR IGNORE INTO contacts
+               (email, company, job_id, name, role, personal_note, contact_type)
+               VALUES (?,?,?,?,'','',?)""",
+            (addr, company, G, name, row["contact_type"].strip()),
+        )
+        if cur.rowcount:
+            added += 1
+            print(f"  [general] {addr} ({company}): no opening in jobs.csv")
+    conn.commit()
+
+    for r in conn.execute(
+        """SELECT email, company FROM contacts g
+           WHERE job_id=? AND status='active' AND EXISTS (
+               SELECT 1 FROM contacts j WHERE j.email=g.email
+               AND j.company=g.company AND j.job_id!=?)""",
+        (G, G),
+    ).fetchall():
+        conn.execute(
+            "UPDATE contacts SET status='superseded' "
+            "WHERE email=? AND company=? AND job_id=?",
+            (r["email"], r["company"], G),
+        )
+        log(conn, r["email"], "superseded",
+            f"{r['company']} has an opening now - general inquiry stopped")
+
+    print(f"  general inquiries: {added} new, skipped {skipped}, "
+          f"{held} not needed (already contacted about an opening there)")
 
 
 def load_suppression(conn):
@@ -406,16 +488,20 @@ def build_queue(conn, cfg, cap):
 
 
 BASE_TEMPLATES = {1: "initial", 2: "followup_1", 3: "followup_2"}
+# A general inquiry has no opening, so its first two mails need their own
+# wording. followup_2.txt is shared: it never mentions a specific opening.
+GENERAL_TEMPLATES = {1: "general", 2: "general_followup_1", 3: "followup_2"}
 
 
-def pick_template(step, contact_type):
+def pick_template(step, contact_type, general=False):
     """templates/<base>.<contact_type>.txt when it exists, else <base>.txt.
 
     So a peer engineer, an engineering manager and a recruiter can get
     different wording just by adding a file - no config schema, and a missing
-    variant quietly falls back instead of failing a send.
+    variant quietly falls back instead of failing a send. general=True picks
+    from GENERAL_TEMPLATES instead, with the same fallback.
     """
-    base = BASE_TEMPLATES[step]
+    base = (GENERAL_TEMPLATES if general else BASE_TEMPLATES)[step]
     ct = (contact_type or "").strip()
     if ct:
         special = TEMPLATES / f"{base}.{ct}.txt"
@@ -464,10 +550,12 @@ def job_refs(job_id):
     job_id holds a req ID *or* a pasted job link, because that is whichever
     one the posting gave us. A URL must never reach the subject line, and a
     blank must never leave a dangling label like "Req ID:" with nothing
-    after it. Returns (job_ref, subject_ref), either of which may be "".
+    after it. A general inquiry has no opening to point at, so its reserved
+    job_id gives neither. Returns (job_ref, subject_ref), either of which
+    may be "".
     """
     jid = (job_id or "").strip()
-    if not jid:
+    if not jid or jid == store.GENERAL_JOB_ID:
         return "", ""
     if JOB_URL.match(jid):
         return f"Posting: {jid}", ""
@@ -475,7 +563,9 @@ def job_refs(job_id):
 
 
 def build_message(row, step, cfg, from_addr):
-    body_tmpl = pick_template(step, row["contact_type"]).read_text(encoding="utf-8")
+    general = is_general(row)
+    body_tmpl = pick_template(step, row["contact_type"],
+                              general).read_text(encoding="utf-8")
     job_ref, subject_ref = job_refs(row["job_id"])
 
     fields = {
@@ -499,9 +589,13 @@ def build_message(row, step, cfg, from_addr):
     body = wrap_body(body)
 
     # Same fallback shape as pick_template(): a contact_type with no entry
-    # of its own, or none at all, gets the shared subject.
-    subject_tmpl = (cfg.get("subject_templates", {}).get(row["contact_type"])
-                    or cfg["subject_template"])
+    # of its own, or none at all, gets the shared subject. A general inquiry
+    # has one subject for everyone, since the per-type ones name an opening.
+    if general:
+        subject_tmpl = cfg["general_subject_template"]
+    else:
+        subject_tmpl = (cfg.get("subject_templates", {}).get(row["contact_type"])
+                        or cfg["subject_template"])
     subject = (row["subject"] if step > 1 and row["subject"]
                else render(subject_tmpl, fields))
     subject = " ".join(subject.split())  # empty job_id leaves a dangling space
@@ -523,7 +617,8 @@ def build_message(row, step, cfg, from_addr):
 
 def check_templates():
     """Fail early and clearly if the templates/ folder is missing or incomplete."""
-    required = ["initial.txt", "followup_1.txt", "followup_2.txt"]
+    required = ["initial.txt", "followup_1.txt", "followup_2.txt",
+                "general.txt", "general_followup_1.txt"]
     if not TEMPLATES.is_dir():
         stray = [p.name for p in BASE.glob("*.txt")]
         msg = f"ERROR: no 'templates' folder next to outreach.py\n  looked in: {TEMPLATES}"
@@ -536,7 +631,8 @@ def check_templates():
     # used, so fail loudly on it instead.
     for p in sorted(TEMPLATES.glob("*.*.txt")):
         base, _, ct = p.stem.rpartition(".")
-        if base in BASE_TEMPLATES.values() and ct not in store.CONTACT_TYPES:
+        bases = set(BASE_TEMPLATES.values()) | set(GENERAL_TEMPLATES.values())
+        if base in bases and ct not in store.CONTACT_TYPES:
             sys.exit(f"ERROR: templates/{p.name} - {ct!r} is not a contact_type.\n"
                      f"  valid: "
                      f"{', '.join(sorted(t for t in store.CONTACT_TYPES if t))}")
@@ -587,7 +683,8 @@ def cmd_send(args):
 
         if args.dry_run:
             print("=" * 68)
-            print(f"step {step}  ->  {msg['To']}")
+            print(f"step {step}  ->  {msg['To']}"
+                  f"{'  [general]' if is_general(row) else ''}")
             print(f"Subject: {msg['Subject']}")
             print("-" * 68)
             print(msg.get_content())
@@ -614,7 +711,8 @@ def cmd_send(args):
              msg["Subject"].removeprefix("Re: "), step,
              row["email"], row["company"], row["job_id"]),
         )
-        log(conn, row["email"], f"sent-step-{step}", row["company"])
+        log(conn, row["email"], f"sent-step-{step}",
+            row["company"] + (" (general)" if is_general(row) else ""))
         sent += 1
 
         if i < len(queue) - 1:
@@ -651,6 +749,13 @@ def cmd_stats(args):
     if total:
         print(f"\nReply rate: {replied}/{total} = {100*replied/total:.1f}%")
         print("  (<5% after ~40 sends means fix the template, not the volume)")
+
+    g_total, g_replied = conn.execute(
+        "SELECT COUNT(*), COALESCE(SUM(status='replied'), 0) FROM contacts "
+        "WHERE job_id=? AND stage>0", (store.GENERAL_JOB_ID,)).fetchone()
+    if g_total:
+        print(f"  of which general inquiries (no opening): "
+              f"{g_replied}/{g_total} = {100*g_replied/g_total:.1f}%")
     print()
 
 

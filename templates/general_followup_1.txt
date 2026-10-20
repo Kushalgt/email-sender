@@ -1,0 +1,10 @@
+Hi {{first_name}},
+
+Following up on my note below. Is there any backend SDE opening at
+{{company}} at the moment, or one expected in the next few weeks?
+Even a one-line reply would help me plan.
+
+If the timing is not right, just say so and I will stop here.
+
+{{from_name}}
+{{phone}}

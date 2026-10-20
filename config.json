@@ -15,6 +15,7 @@
     "hiring_manager": "Application for {{role}} - {{from_name}}",
     "recruiter": "{{company}} {{subject_ref}} - {{role}}"
   },
+  "general_subject_template": "Backend SDE Opportunities at {{company}} | HiLabs, IIT Delhi",
   "daily_cap": 999999,
   "min_gap_seconds": 45,
   "max_gap_seconds": 180,

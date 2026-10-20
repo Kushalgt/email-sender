@@ -12,6 +12,10 @@ The join rule, decided deliberately: EVERY person at a company is contacted
 about EVERY opening at that company. So the person->job link is not stored,
 it is a cross join computed at load time by load_contacts().
 
+A person whose company has NO opening in jobs.csv is not dropped: they get
+one general "is there an opening?" inquiry instead, from
+load_general_contacts(), under the reserved job_id GENERAL_JOB_ID.
+
 Two things this module is careful about, because the old writers were not:
 
  1. Writes are ATOMIC. The old code did open(path, "w"), which empties the
@@ -55,6 +59,13 @@ PEOPLE_FIELDS = ["email", "name", "company_slug", "contact_type", "email_source"
 # II, Advanced, Intermediate) and 'java developer' next to 'Java Developer'.
 CONTACT_TYPES = {"", "engineer", "engineering_manager", "hiring_manager",
                  "recruiter"}
+
+# The job_id of a general inquiry - a person whose company has no opening.
+# Not blank: a blank job_id already means a real opening that came with no
+# req ID, and sharing outreach.db's (email, company, job_id) key with one
+# would make INSERT OR IGNORE swallow that opening's email later. So jobs.csv
+# may not use this value - load_jobs() refuses it.
+GENERAL_JOB_ID = "general"
 
 
 def slug(s):
@@ -107,6 +118,10 @@ def load_jobs(companies=None):
         if cs not in companies:
             sys.exit(f"ERROR: {JOBS_CSV.name} references unknown company_slug "
                      f"{cs!r}. Add it to {COMPANIES_CSV.name} or fix the typo.")
+        if row["job_id"].lower() == GENERAL_JOB_ID:
+            sys.exit(f"ERROR: {JOBS_CSV.name}: job_id {row['job_id']!r} for "
+                     f"company_slug={cs!r} is reserved for general inquiries.\n"
+                     f"  Use the real req ID, the posting link, or leave it blank.")
         key = (cs, row["job_id"])
         if key in seen:
             sys.exit(f"ERROR: {JOBS_CSV.name} has two rows for "
@@ -168,21 +183,46 @@ def load_contacts():
     out = []
     for p in people:
         for j in by_company.get(p["company_slug"], []):
-            out.append({
-                "email": p["email"],
-                "name": p["name"],
-                "company": p["company"],
-                "company_slug": p["company_slug"],
-                "contact_type": p["contact_type"],
-                "email_source": p["email_source"],
-                "job_id": j["job_id"],
-                "role": j["job_title"],
-                "job_title": j["job_title"],
-                "personal_note": j["personal_note"],
-                "jd": j["jd"],
-                "jd_file": j["jd_file"],
-            })
+            out.append(_contact(p, j))
     return out
+
+
+# Stands in for the opening of a general inquiry: there is none, so every
+# opening field is blank.
+_NO_OPENING = {"job_id": GENERAL_JOB_ID, "job_title": "", "personal_note": "",
+               "jd": "", "jd_file": ""}
+
+
+def load_general_contacts():
+    """One row per person whose company has NO opening in jobs.csv.
+
+    These people get a general "is there an opening?" inquiry instead of a
+    job email. Same flat shape as load_contacts(), with job_id set to
+    GENERAL_JOB_ID and every opening field blank, so outreach.db keeps them
+    in the same table under a key of their own.
+    """
+    companies = load_companies()
+    with_openings = {j["company_slug"] for j in load_jobs(companies)}
+    return [_contact(p, _NO_OPENING) for p in load_people(companies)
+            if p["company_slug"] not in with_openings]
+
+
+def _contact(p, j):
+    """The flat contact row for person p and opening j."""
+    return {
+        "email": p["email"],
+        "name": p["name"],
+        "company": p["company"],
+        "company_slug": p["company_slug"],
+        "contact_type": p["contact_type"],
+        "email_source": p["email_source"],
+        "job_id": j["job_id"],
+        "role": j["job_title"],
+        "job_title": j["job_title"],
+        "personal_note": j["personal_note"],
+        "jd": j["jd"],
+        "jd_file": j["jd_file"],
+    }
 
 
 # ------------------------------------------------------------------ write

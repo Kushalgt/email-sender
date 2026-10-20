@@ -1,0 +1,18 @@
+Hi {{first_name}},
+
+I’m currently a Software Development Engineer I at HiLabs and am exploring backend SDE opportunities at {{company}}.
+
+I primarily work with Java, Spring Boot, Kafka, and PostgreSQL, building backend services, asynchronous data pipelines, and distributed systems. One of my key contributions was redesigning an export pipeline using database cursor streaming and a producer-consumer architecture, reducing export time from 45 minutes to 2 minutes while eliminating JVM memory constraints.
+
+I graduated from IIT Delhi in 2025 and have also worked on multi-tenant backend architecture, event-driven audit logging, and AI-powered rule management using MCP.
+
+Are there any current or upcoming SDE/backend openings at {{company}} that might be a fit for my experience? I’d be happy to share my resume and apply for a relevant role.
+
+Resume: {{resume_link}}
+
+Thank you for your time.
+
+Best regards,
+{{from_name}}
+{{phone}} | {{email}}
+{{linkedin}}

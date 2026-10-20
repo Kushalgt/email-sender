@@ -76,3 +76,7 @@ blitz,blitz,blitznow.in,{first}.{last}
 cisco,cisco,cisco.com,{f}{last}
 pinelabs,Pine Labs,pinelabs.com,{first}.{last}
 rippling,Rippling,rippling.com,{first}.{last}
+intuit,intuit,intuit.com,{first}_{last}
+stripe,stripe,,
+justpay,Justpay,juspay.in,{first}.{last}
+atlassian,Atlassian,atlassian.com,{f}{last}

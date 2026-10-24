@@ -65,7 +65,6 @@ nexla,Nexla,nexla.com,{first}.{last}
 lowe,Lowe's,,
 visa,Visa,visa.com,{first}{l}
 urban,Urban Company,urbancompany.com,{first}{last}
-google,Google,,
 greenland,Greenland Investment management,greenlandim.com,{first}
 natwest,NatWest,natwest.com,{first}.{last}
 microsoft,Microsoft,,
@@ -81,8 +80,10 @@ stripe,stripe,,
 justpay,Justpay,juspay.in,{first}.{last}
 atlassian,Atlassian,atlassian.com,{f}{last}
 sprinklr,Sprinklr,sprinklr.com,{first}.{last}
-uber,Uber,,
+uber,Uber,uber.com,{first}
 google,Google,,
 qualcom,Qualcomm,,
 barclays,Barclays,,
 priceline,Priceline,,
+aisensey,AiSensey,aisensy.com,{first}.{last}
+meesho,Meesho,meesho.com,{first}.{last}

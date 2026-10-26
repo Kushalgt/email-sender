@@ -16,7 +16,7 @@ citi,Citi,citi.com,{first}.{last}
 databricks,Databricks,databricks.com,{first}.{last}
 dexcom,Dexcom,dexcom.com,{first}.{last}
 gitlab,Gitlab,gitlab.com,{f}{last}
-mastercard,Mastercard,,
+mastercard,Mastercard,mastercard.com,{first}.{last}
 optum,Optum,optum.com,{first}_{last}
 paypay,Paypay,paypay-corp.co.jp,{first}.{last}
 siemens,Siemens,siemens.com,{first}.{last}
@@ -82,8 +82,10 @@ atlassian,Atlassian,atlassian.com,{f}{last}
 sprinklr,Sprinklr,sprinklr.com,{first}.{last}
 uber,Uber,uber.com,{first}
 google,Google,,
-qualcom,Qualcomm,,
+qualcom,Qualcomm,qualcomm.com,{first}.{last}
 barclays,Barclays,barclays.com,{first}.{last}
 priceline,Priceline,priceline.com,{first}.{last}
 aisensey,AiSensey,aisensy.com,{first}.{last}
 meesho,Meesho,meesho.com,{first}.{last}
+cashfree,Cashfree,cashfree.com,{first}.{l}
+zepto,zepto,zeptonow.com,{first}.{last}

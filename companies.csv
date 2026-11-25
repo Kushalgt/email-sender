@@ -22,7 +22,7 @@ paypay,Paypay,paypay-corp.co.jp,{first}.{last}
 siemens,Siemens,siemens.com,{first}.{last}
 syfe,Syfe,syfe.com,{first}.{last}
 goldman_sachs,Goldman Sachs,,
-jp_morgan_chase,JPMorganChase,,
+jp_morgan_chase,JPMorganChase,jpmchase.com,{first}.{last}
 master_card,MasterCard,,
 amadeus,amadeus,,
 cbts,cbts,,
@@ -90,3 +90,7 @@ meesho,Meesho,meesho.com,{first}.{last}
 cashfree,Cashfree,cashfree.com,{first}.{l}
 zepto,zepto,zeptonow.com,{first}.{last}
 bain,Bain & Company,,
+servicenow,Service Now,servicenow.com,{first}.{last}
+tripjack,TripJack ,tripjack.com,{first}.{last}
+qualys,Qualys,qualys.com,{f}{last}
+puma,Puma,puma.com,{first}.{last}
